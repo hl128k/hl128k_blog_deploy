@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.128765.xyz","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文记录了如何使用Docker部署Gitea Actions，主要步骤包括配置Docker-Compose文件、生成act_runner的config文件、解决网络连接问题。强调Gitea Actions可以兼容GitHub Actions，实现本地运行无需修改代码。通过详细配置和处理网络问题，确保了act_runner可以正确连接Gitea实例，最终成功部署。详细步骤见文中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 部署 Gitea Actions">
+<meta property="og:url" content="https://www.128765.xyz/2024/07/19/202407191026/index.html">
+<meta property="og:site_name" content="hl128k Blog">
+<meta property="og:description" content="本文记录了如何使用Docker部署Gitea Actions，主要步骤包括配置Docker-Compose文件、生成act_runner的config文件、解决网络连接问题。强调Gitea Actions可以兼容GitHub Actions，实现本地运行无需修改代码。通过详细配置和处理网络问题，确保了act_runner可以正确连接Gitea实例，最终成功部署。详细步骤见文中。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-19T02:26:23.000Z">
+<meta property="article:modified_time" content="2024-07-18T19:01:23.000Z">
+<meta property="article:author" content="hl128k">
+<meta property="article:tag" content="Actions">
+<meta property="article:tag" content="Gitea">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.128765.xyz/2024/07/19/202407191026/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Docker 部署 Gitea Actions | hl128k Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hl128k Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个bug改一天</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.128765.xyz/2024/07/19/202407191026/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hl128k">
+      <meta itemprop="description" content="hl128k的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hl128k Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker 部署 Gitea Actions
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-07-19 10:26:23 / 修改时间：03:01:23" itemprop="dateCreated datePublished" datetime="2024-07-19T10:26:23+08:00">2024-07-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">技术教程</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/Gitea/" itemprop="url" rel="index"><span itemprop="name">Gitea</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>心血来潮想要使用自己的Actions,于是找了一遍现有的git服务器.<br>其中gitea 的 Gitea Actions可以基本无修改的兼容GitHub Actions,也就是说只要拉下来GitHub的项目就能在本地使用,不需要修改还是挺方便的<br>记录一下部署踩坑</p>
+<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p>先放一下最终<br>Docker-Compose</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">gitea:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">gitea/gitea:latest</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">gitea</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">USER_UID=1000</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">USER_GID=1000</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">D:/gitea-data:/data</span>  <span class="comment"># 修改数据目录为 D:\gitea-data</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;222:22&quot;</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">runner:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">gitea/act_runner:latest</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">act_runner</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">gitea</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">CONFIG_FILE=/config.yaml</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">GITEA_INSTANCE_URL=http://host.docker.internal:3000</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">GITEA_RUNNER_REGISTRATION_TOKEN=&lt;TOKEN&gt;</span>  <span class="comment"># 设置你的 Gitea Runner 注册令牌</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/var/run/docker.sock:/var/run/docker.sock</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">D:/gitea-data/act_runner/config.yaml:/config.yaml</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">D:/gitea-data/act_runner/data:/data</span>  <span class="comment"># 设置 runner 的数据目录为 D:\gitea-data\act_runner</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br></pre></td></tr></table></figure>
+<p>gitea部分没什么可说的基本配置<br>act_runner着重来说</p>
+<ol>
+<li><h3 id="config生成"><a href="#config生成" class="headerlink" title="config生成"></a>config生成</h3></li>
+</ol>
+<p>act_runner 需要先创建容器才能使用然后在容器内使用<code>act_runner generate-config &gt; config.yaml</code>才能生成<br>所有要先删除<code>CONFIG_FILE=/config.yaml</code>和<code>- D:/gitea-data/act_runner/config.yaml:/config.yaml</code>生成一次才行<br>当然现在可以直接使用我的</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Example configuration file, it&#x27;s safe to copy this as the default config file without any modification.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># You don&#x27;t have to copy this file to your instance,</span></span><br><span class="line"><span class="comment"># just run `./act_runner generate-config &gt; config.yaml` to generate a config file.</span></span><br><span class="line"></span><br><span class="line"><span class="attr">log:</span></span><br><span class="line">  <span class="comment"># The level of logging, can be trace, debug, info, warn, error, fatal</span></span><br><span class="line">  <span class="attr">level:</span> <span class="string">info</span></span><br><span class="line"></span><br><span class="line"><span class="attr">runner:</span></span><br><span class="line">  <span class="comment"># Where to store the registration result.</span></span><br><span class="line">  <span class="attr">file:</span> <span class="string">.runner</span></span><br><span class="line">  <span class="comment"># Execute how many tasks concurrently at the same time.</span></span><br><span class="line">  <span class="attr">capacity:</span> <span class="number">1</span></span><br><span class="line">  <span class="comment"># Extra environment variables to run jobs.</span></span><br><span class="line">  <span class="attr">envs:</span></span><br><span class="line">    <span class="attr">A_TEST_ENV_NAME_1:</span> <span class="string">a_test_env_value_1</span></span><br><span class="line">    <span class="attr">A_TEST_ENV_NAME_2:</span> <span class="string">a_test_env_value_2</span></span><br><span class="line">  <span class="comment"># Extra environment variables to run jobs from a file.</span></span><br><span class="line">  <span class="comment"># It will be ignored if it&#x27;s empty or the file doesn&#x27;t exist.</span></span><br><span class="line">  <span class="attr">env_file:</span> <span class="string">.env</span></span><br><span class="line">  <span class="comment"># The timeout for a job to be finished.</span></span><br><span class="line">  <span class="comment"># Please note that the Gitea instance also has a timeout (3h by default) for the job.</span></span><br><span class="line">  <span class="comment"># So the job could be stopped by the Gitea instance if it&#x27;s timeout is shorter than this.</span></span><br><span class="line">  <span class="attr">timeout:</span> <span class="string">3h</span></span><br><span class="line">  <span class="comment"># Whether skip verifying the TLS certificate of the Gitea instance.</span></span><br><span class="line">  <span class="attr">insecure:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># The timeout for fetching the job from the Gitea instance.</span></span><br><span class="line">  <span class="attr">fetch_timeout:</span> <span class="string">5s</span></span><br><span class="line">  <span class="comment"># The interval for fetching the job from the Gitea instance.</span></span><br><span class="line">  <span class="attr">fetch_interval:</span> <span class="string">2s</span></span><br><span class="line">  <span class="comment"># The labels of a runner are used to determine which jobs the runner can run, and how to run them.</span></span><br><span class="line">  <span class="comment"># Like: &quot;macos-arm64:host&quot; or &quot;ubuntu-latest:docker://gitea/runner-images:ubuntu-latest&quot;</span></span><br><span class="line">  <span class="comment"># Find more images provided by Gitea at https://gitea.com/gitea/runner-images .</span></span><br><span class="line">  <span class="comment"># If it&#x27;s empty when registering, it will ask for inputting labels.</span></span><br><span class="line">  <span class="comment"># If it&#x27;s empty when execute `daemon`, will use labels in `.runner` file.</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;ubuntu-latest:docker://gitea/runner-images:ubuntu-latest&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;ubuntu-22.04:docker://gitea/runner-images:ubuntu-22.04&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;ubuntu-20.04:docker://gitea/runner-images:ubuntu-20.04&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cache:</span></span><br><span class="line">  <span class="comment"># Enable cache server to use actions/cache.</span></span><br><span class="line">  <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># The directory to store the cache data.</span></span><br><span class="line">  <span class="comment"># If it&#x27;s empty, the cache data will be stored in $HOME/.cache/actcache.</span></span><br><span class="line">  <span class="attr">dir:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="comment"># The host of the cache server.</span></span><br><span class="line">  <span class="comment"># It&#x27;s not for the address to listen, but the address to connect from job containers.</span></span><br><span class="line">  <span class="comment"># So 0.0.0.0 is a bad choice, leave it empty to detect automatically.</span></span><br><span class="line">  <span class="attr">host:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="comment"># The port of the cache server.</span></span><br><span class="line">  <span class="comment"># 0 means to use a random available port.</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">0</span></span><br><span class="line">  <span class="comment"># The external cache server URL. Valid only when enable is true.</span></span><br><span class="line">  <span class="comment"># If it&#x27;s specified, act_runner will use this URL as the ACTIONS_CACHE_URL rather than start a server by itself.</span></span><br><span class="line">  <span class="comment"># The URL should generally end with &quot;/&quot;.</span></span><br><span class="line">  <span class="attr">external_server:</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">container:</span></span><br><span class="line">  <span class="comment"># Specifies the network to which the container will connect.</span></span><br><span class="line">  <span class="comment"># Could be host, bridge or the name of a custom network.</span></span><br><span class="line">  <span class="comment"># If it&#x27;s empty, act_runner will create a network automatically.</span></span><br><span class="line">  <span class="attr">network:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="comment"># Whether to use privileged mode or not when launching task containers (privileged mode is required for Docker-in-Docker).</span></span><br><span class="line">  <span class="attr">privileged:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># And other options to be used when the container is started (eg, --add-host=my.gitea.url:host-gateway).</span></span><br><span class="line">  <span class="attr">options:</span></span><br><span class="line">  <span class="comment"># The parent directory of a job&#x27;s working directory.</span></span><br><span class="line">  <span class="comment"># <span class="doctag">NOTE:</span> There is no need to add the first &#x27;/&#x27; of the path as act_runner will add it automatically. </span></span><br><span class="line">  <span class="comment"># If the path starts with &#x27;/&#x27;, the &#x27;/&#x27; will be trimmed.</span></span><br><span class="line">  <span class="comment"># For example, if the parent directory is /path/to/my/dir, workdir_parent should be path/to/my/dir</span></span><br><span class="line">  <span class="comment"># If it&#x27;s empty, /workspace will be used.</span></span><br><span class="line">  <span class="attr">workdir_parent:</span></span><br><span class="line">  <span class="comment"># Volumes (including bind mounts) can be mounted to containers. Glob syntax is supported, see https://github.com/gobwas/glob</span></span><br><span class="line">  <span class="comment"># You can specify multiple volumes. If the sequence is empty, no volumes can be mounted.</span></span><br><span class="line">  <span class="comment"># For example, if you only allow containers to mount the `data` volume and all the json files in `/src`, you should change the config to:</span></span><br><span class="line">  <span class="comment"># valid_volumes:</span></span><br><span class="line">  <span class="comment">#   - data</span></span><br><span class="line">  <span class="comment">#   - /src/*.json</span></span><br><span class="line">  <span class="comment"># If you want to allow any volume, please use the following configuration:</span></span><br><span class="line">  <span class="comment"># valid_volumes:</span></span><br><span class="line">  <span class="comment">#   - &#x27;**&#x27;</span></span><br><span class="line">  <span class="attr">valid_volumes:</span> []</span><br><span class="line">  <span class="comment"># overrides the docker client host with the specified one.</span></span><br><span class="line">  <span class="comment"># If it&#x27;s empty, act_runner will find an available docker host automatically.</span></span><br><span class="line">  <span class="comment"># If it&#x27;s &quot;-&quot;, act_runner will find an available docker host automatically, but the docker host won&#x27;t be mounted to the job containers and service containers.</span></span><br><span class="line">  <span class="comment"># If it&#x27;s not empty or &quot;-&quot;, the specified docker host will be used. An error will be returned if it doesn&#x27;t work.</span></span><br><span class="line">  <span class="attr">docker_host:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="comment"># Pull docker image(s) even if already present</span></span><br><span class="line">  <span class="attr">force_pull:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Rebuild docker image(s) even if already present</span></span><br><span class="line">  <span class="attr">force_rebuild:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">host:</span></span><br><span class="line">  <span class="comment"># The parent directory of a job&#x27;s working directory.</span></span><br><span class="line">  <span class="comment"># If it&#x27;s empty, $HOME/.cache/act/ will be used.</span></span><br><span class="line">  <span class="attr">workdir_parent:</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><h3 id="网络问题"><a href="#网络问题" class="headerlink" title="网络问题"></a>网络问题</h3></li>
+</ol>
+<p>这里的网络不是指连接GitHub和Docker Hub,是<code>GITEA_INSTANCE_URL</code>这个参数<br>因为使用的Docker-Compose习惯性的使用了<code>depends_on</code>,所以配置了<code>GITEA_INSTANCE_URL:http://gitea:3000</code><br>但是这个并不是act_runner使用的,而且由act_runner生成的新的docker容器连接使用的,这个新的容器并不在Docker-Compose里面,所以<span class="exturl" data-url="aHR0cDovL2dpdGVhOjMwMDDmmK/ov57kuI3kuIrnmoQ=">http://gitea:3000是连不上的<i class="fa fa-external-link-alt"></i></span><br>所以这里要么像我一样使用宿主的地址或者使用外部网络<br>先执行<br><code>docker network create gitea-network</code><br>然后配置里增加</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">networks:</span></span><br><span class="line">    <span class="attr">gitea-network:</span></span><br><span class="line">        <span class="attr">external:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>networks里都增加固定ip,配置里填固定ip就可以了<code>GITEA_INSTANCE_URL:http://&lt;gitea IP&gt;:3000</code>,理论上是这样的,不过没有实践</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Actions/" rel="tag"># Actions</a>
+              <a href="/tags/Gitea/" rel="tag"># Gitea</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/07/17/202407171626/" rel="prev" title="Serv00 更新 fuclaude 脚本">
+      <i class="fa fa-chevron-left"></i> Serv00 更新 fuclaude 脚本
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%8F%90"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#config%E7%94%9F%E6%88%90"><span class="nav-number">2.0.1.</span> <span class="nav-text">config生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98"><span class="nav-number">2.0.2.</span> <span class="nav-text">网络问题</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hl128k</p>
+  <div class="site-description" itemprop="description">hl128k的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hl128k</span>
+</div>
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

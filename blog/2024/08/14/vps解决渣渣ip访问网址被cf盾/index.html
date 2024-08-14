@@ -20,17 +20,20 @@
     var CONFIG = {"hostname":"www.128765.xyz","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="hl128k的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="hl128k Blog">
-<meta property="og:url" content="https://www.128765.xyz/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/%E9%83%A8%E7%BD%B2/index.html">
+  <meta name="description" content="这篇博文分享了作者在VPS上部署chat2api时遇到的网络问题，尤其是VPS的IP质量差，导致无法正常对话。由于市面上的梯子服务质量不佳，过CF盾的难度增加，购买高质量梯子成本又过高，作者最终找到一个通过使用Warp代理的方法。作者引用了@mikeee的解决方案，并提供了相关Docker配置，帮助其他用户解决类似问题，稳定通过盾并正常使用VPS。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vps解决渣渣ip访问网址被cf盾">
+<meta property="og:url" content="https://www.128765.xyz/2024/08/14/vps%E8%A7%A3%E5%86%B3%E6%B8%A3%E6%B8%A3ip%E8%AE%BF%E9%97%AE%E7%BD%91%E5%9D%80%E8%A2%ABcf%E7%9B%BE/index.html">
 <meta property="og:site_name" content="hl128k Blog">
-<meta property="og:description" content="hl128k的博客">
+<meta property="og:description" content="这篇博文分享了作者在VPS上部署chat2api时遇到的网络问题，尤其是VPS的IP质量差，导致无法正常对话。由于市面上的梯子服务质量不佳，过CF盾的难度增加，购买高质量梯子成本又过高，作者最终找到一个通过使用Warp代理的方法。作者引用了@mikeee的解决方案，并提供了相关Docker配置，帮助其他用户解决类似问题，稳定通过盾并正常使用VPS。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-08-14T13:33:20.000Z">
+<meta property="article:modified_time" content="2024-08-14T06:46:05.000Z">
 <meta property="article:author" content="hl128k">
+<meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.128765.xyz/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/%E9%83%A8%E7%BD%B2/">
+<link rel="canonical" href="https://www.128765.xyz/2024/08/14/vps%E8%A7%A3%E5%86%B3%E6%B8%A3%E6%B8%A3ip%E8%AE%BF%E9%97%AE%E7%BD%91%E5%9D%80%E8%A2%ABcf%E7%9B%BE/">
 
 
 <script id="page-configurations">
@@ -38,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类: 部署 | hl128k Blog</title>
+  <title>vps解决渣渣ip访问网址被cf盾 | hl128k Blog</title>
   
 
 
@@ -157,111 +160,101 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">部署
-          <small>分类</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.128765.xyz/2024/08/14/vps%E8%A7%A3%E5%86%B3%E6%B8%A3%E6%B8%A3ip%E8%AE%BF%E9%97%AE%E7%BD%91%E5%9D%80%E8%A2%ABcf%E7%9B%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hl128k">
+      <meta itemprop="description" content="hl128k的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hl128k Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vps解决渣渣ip访问网址被cf盾
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-08-14 21:33:20 / 修改时间：14:46:05" itemprop="dateCreated datePublished" datetime="2024-08-14T21:33:20+08:00">2024-08-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">技术教程</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/%E9%83%A8%E7%BD%B2/" itemprop="url" rel="index"><span itemprop="name">部署</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
-    </div>
+        <h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>整了一个vps，想要docker部署一个chat2api，但是这渣渣机ip太差，百分百被盾根据不能完成对话，贪便宜后悔啊<br>那这服务器就用不了了吗？</p>
+<p>只能使用梯子可以，但是手里的梯子都很垃圾还得过cf盾，自己用还好，代码过cf盾很麻烦，再买一个好的梯子，比vps都贵了太亏了</p>
+<p>最终找到一个<span class="exturl" data-url="aHR0cHM6Ly9saW51eC5kby90L3RvcGljLzExMzE4OS8zNQ==">解决方法<i class="fa fa-external-link-alt"></i></span>，感谢大佬<span class="exturl" data-url="aHR0cHM6Ly9saW51eC5kby91L21pa2VlZQ==">@mikeee<i class="fa fa-external-link-alt"></i></span>，使用大善人的warp代理，白嫖还能稳定过盾</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">warp:</span></span><br><span class="line">  <span class="attr">image:</span> <span class="string">caomingjun/warp</span></span><br><span class="line">  <span class="attr">container_name:</span> <span class="string">warp</span></span><br><span class="line">  <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line">  <span class="attr">environment:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">WARP_SLEEP=2</span></span><br><span class="line">    <span class="comment"># - WARP_LICENSE_KEY=&lt;到warpplus或warpbot电报群去KEY填这里然后去掉注释#&gt;</span></span><br><span class="line">  <span class="attr">cap_add:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">NET_ADMIN</span></span><br><span class="line">  <span class="attr">sysctls:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">net.ipv6.conf.all.disable_ipv6=0</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">net.ipv4.conf.all.src_valid_mark=1</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">./data:/var/lib/cloudflare-warp</span></span><br></pre></td></tr></table></figure>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-08-14T21:59:20+08:00"
-              content="2024-08-14">
-          08-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/08/14/Ubuntu%E4%B8%ADdocker%E9%98%B2%E7%81%AB%E5%A2%99%E5%A4%84%E7%90%86/" itemprop="url">
-            <span itemprop="name">Ubuntu中docker防火墙处理</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-08-14T21:33:20+08:00"
-              content="2024-08-14">
-          08-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/08/14/vps%E8%A7%A3%E5%86%B3%E6%B8%A3%E6%B8%A3ip%E8%AE%BF%E9%97%AE%E7%BD%91%E5%9D%80%E8%A2%ABcf%E7%9B%BE/" itemprop="url">
-            <span itemprop="name">vps解决渣渣ip访问网址被cf盾</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-07-17T09:05:23+08:00"
-              content="2024-07-17">
-          07-17
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/07/17/%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8ATelegraph-Image/" itemprop="url">
-            <span itemprop="name">免费图床Telegraph-Image</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-07-14T23:10:20+08:00"
-              content="2024-07-14">
-          07-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/07/14/%E4%BD%BF%E7%94%A8GitHubActions%E5%AE%8C%E6%88%90Hexo%E6%BA%90%E7%A0%81%E4%B8%8E%E7%BC%96%E8%AF%91%E5%90%8E%E5%88%86%E7%A6%BB%E9%83%A8%E7%BD%B2/" itemprop="url">
-            <span itemprop="name">使用GitHub Actions完成Hexo源码与编译后分离部署</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+<p>其他的也一样可以</p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/07/19/Docker%E9%83%A8%E7%BD%B2GiteaActions/" rel="prev" title="Docker 部署 Gitea Actions">
+      <i class="fa fa-chevron-left"></i> Docker 部署 Gitea Actions
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/08/14/Ubuntu%E4%B8%ADdocker%E9%98%B2%E7%81%AB%E5%A2%99%E5%A4%84%E7%90%86/" rel="next" title="Ubuntu中docker防火墙处理">
+      Ubuntu中docker防火墙处理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -314,6 +307,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

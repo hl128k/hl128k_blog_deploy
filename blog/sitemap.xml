@@ -4,7 +4,7 @@
   <url>
     <loc>https://www.128765.xyz/about/index.html</loc>
     
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -13,7 +13,7 @@
   <url>
     <loc>https://www.128765.xyz/categories/index.html</loc>
     
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -22,7 +22,16 @@
   <url>
     <loc>https://www.128765.xyz/tags/index.html</loc>
     
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.128765.xyz/2024/08/23/Serv00%E5%BA%94%E7%94%A8%E4%BF%9D%E6%B4%BB%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5fuclaude/</loc>
+    
+    <lastmod>2024-08-22</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -56,7 +65,7 @@
   </url>
   
   <url>
-    <loc>https://www.128765.xyz/2024/07/17/Serv00%E6%9B%B4%E6%96%B0fuclaude%E8%84%9A%E6%9C%AC/</loc>
+    <loc>https://www.128765.xyz/2024/07/17/Serv00%E6%9B%B4%E6%96%B0go-proxy-bingai%E8%84%9A%E6%9C%AC/</loc>
     
     <lastmod>2024-08-14</lastmod>
     
@@ -65,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://www.128765.xyz/2024/07/17/Serv00%E6%9B%B4%E6%96%B0go-proxy-bingai%E8%84%9A%E6%9C%AC/</loc>
+    <loc>https://www.128765.xyz/2024/07/17/Serv00%E6%9B%B4%E6%96%B0fuclaude%E8%84%9A%E6%9C%AC/</loc>
     
     <lastmod>2024-08-14</lastmod>
     
@@ -112,7 +121,7 @@
 
   <url>
     <loc>https://www.128765.xyz/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -120,84 +129,84 @@
   
   <url>
     <loc>https://www.128765.xyz/tags/Actions/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/tags/Gitea/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/tags/Serv00/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/tags/free-api/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/tags/%E8%84%9A%E6%9C%AC/</loc>
-    <lastmod>2024-08-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.128765.xyz/tags/fuclaude/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/tags/go-proxy-bingai/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.128765.xyz/tags/fuclaude/</loc>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/tags/docker/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/tags/GitHub/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/tags/Hexo/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/tags/cloudflare/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/tags/Telegraph-Image/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -206,35 +215,35 @@
   
   <url>
     <loc>https://www.128765.xyz/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/categories/%E8%84%9A%E6%9C%AC/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/Gitea/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/%E9%83%A8%E7%BD%B2/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.128765.xyz/categories/%E8%84%9A%E6%9C%AC/Serv00/</loc>
-    <lastmod>2024-08-19</lastmod>
+    <lastmod>2024-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

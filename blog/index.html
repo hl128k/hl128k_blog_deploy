@@ -221,7 +221,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          在Serv00服务器上，使用pm2保活应用时遇到进程时常死掉的问题。大佬@saika提供了一个进程保活的最终解决方案。根据@saika的教程，部署了LLM Red Team的glm-free-api项目。过程中遇到无法通过nodejs启动项目的问题，只能通过pm2启动。教程说明包括安装pm2、配置端口、创建更新脚本、编写配置文件和安装依赖等步骤。最终，通过监控网页来保活应用。注意，本教程仅供学习和娱乐使用，禁止商用。
+          ai: 这篇文章介绍了如何在Serv00服务器上部署LLM Red Team的glm-free-api项目，并利用pm2确保应用的进程保活。作者按照@saika的教程步骤，通过安装pm2、配置端口、创建更新脚本及必要文件，成功地启动并运行了该项目。文章还提醒教程仅供学习和交流使用，严禁商用。最后，作者提供了项目地址和步骤说明，包括创建所需目录、配置文件及执行命令等。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/08/23/Serv00%E5%BA%94%E7%94%A8%E4%BF%9D%E6%B4%BB%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5glm-free-api/#more" rel="contents">
@@ -306,7 +306,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          在使用Serv00服务器时，虽然通过大佬的教程部署了许多应用并使用pm2来保持应用活跃，但由于重启和清除定时任务，进程仍会时不时地崩溃。@saika提供了一种进程保活的最终解决方案，解决了这个问题。按照@saika的示例，部署fuclaude的步骤包括：在面板Port reservation中添加端口，使用SSH在新建域名目录的public_nodejs路径下创建并赋予执行权限的update_to_github.sh脚本，执行脚本下载最新的fuclaude，接着将app.js和package.json放入public_nodejs目录，执行npm install，并通过网页监控应用以保持其活跃。其他应用可以类似地替换命令进行保活。
+          ai: 这篇文章介绍了如何在Serv00服务器上部署和保活fuclaude应用。首先，根据大佬@saika提供的解决方案进行进程保活。接着，通过面板Port reservation添加端口，使用SSH进入新建的域名目录，并创建`update_to_github.sh`脚本来下载最新的fuclaude。脚本下载完成后，将`app.js`和`package.json`文件放入指定目录并执行`npm22 install`。最后，通过监控网页来保持应用的运行。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/08/23/Serv00%E5%BA%94%E7%94%A8%E4%BF%9D%E6%B4%BB%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5fuclaude/#more" rel="contents">
@@ -391,7 +391,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          请提供需要总结的文本。
+          明白了，请提供要摘要的文章内容。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/08/14/Serv00%E6%9B%B4%E6%96%B0free-api%E8%84%9A%E6%9C%AC/#more" rel="contents">
@@ -476,7 +476,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          在使用VPS和Docker部署项目时，由于VPS没有外部防火墙，决定使用Ubuntu的ufw防火墙来管理端口。虽然docker启动和nginx映射看似正常，但发现docker忽略了ufw的设置，直接修改了iptables，使得端口依然可以访问。尝试禁用docker对iptables的修改权限导致docker内部通信失败，nginx无法访问。最终解决方案是使用默认的ufw设置，禁止所有端口开放，并通过统一网络将docker容器连接，端口不对外开放，统一使用nginx容器处理，并通过服务名称访问。
+          ai: 这篇文章介绍了在没有外部防火墙的VPS上使用Ubuntu的ufw防火墙来部署Docker项目时遇到的问题。由于Docker会直接修改iptables规则，导致即使ufw配置了端口规则，Docker容器的端口依然可以被访问。解决方案是禁用Docker对iptables的修改权限，但这样会使Docker内部通信失败。最终选择了让Docker容器加入统一网络，使用nginx容器处理对外访问，地址使用服务名称。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/08/14/Ubuntu%E4%B8%ADdocker%E9%98%B2%E7%81%AB%E5%A2%99%E5%A4%84%E7%90%86/#more" rel="contents">
@@ -561,7 +561,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          用户在配置VPS时遇到问题，因为IP质量差，无法通过防护系统进行有效的对话。虽然可以使用梯子，但现有的梯子性能不佳且难以通过防护系统，再购买高质量梯子成本较高。最终，用户找到了解决方案——使用warp代理，能够稳定地绕过防护系统并且不需要额外付费。
+          ai: 这篇文章介绍了作者在使用VPS部署chat2api时遇到的困难，由于VPS的IP质量差，导致无法完成对话，且使用便宜的梯子无法有效通过CF盾。作者通过使用大善人的warp代理解决了这个问题，warp代理不仅稳定且可以免费使用，从而使服务器能够正常工作。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/08/14/vps%E8%A7%A3%E5%86%B3%E6%B8%A3%E6%B8%A3ip%E8%AE%BF%E9%97%AE%E7%BD%91%E5%9D%80%E8%A2%ABcf%E7%9B%BE/#more" rel="contents">
@@ -646,7 +646,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          在尝试使用Gitea的Actions进行本地部署时，作者总结了部署过程中的一些关键点和注意事项。Gitea的Actions能够兼容GitHub Actions，部署时主要涉及Docker-Compose配置。配置过程中，需要先生成`act_runner`的配置文件，通过在容器内执行`act_runner generate-config`命令来完成，同时要注意网络配置的问题，特别是`GITEA_INSTANCE_URL`的设置。由于`act_runner`生成的新容器可能无法直接连接到`docker-compose`中的Gitea实例，因此需要使用宿主地址或配置外部网络。建议在Docker网络中创建固定IP以确保网络连接正常。
+          ai: 这篇文章介绍了如何在本地部署和使用Gitea Actions，包括使用Docker-Compose和act_runner。文章重点讲解了生成act_runner的配置文件以及处理网络连接问题。生成配置文件时，需要删除默认配置路径以确保生成正确的配置；网络问题方面，需注意Docker-Compose的depends_on设置对act_runner的影响，建议使用宿主机地址或配置固定IP来确保Gitea的URL能正确连接。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/07/19/Docker%E9%83%A8%E7%BD%B2GiteaActions/#more" rel="contents">
@@ -731,7 +731,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          请提供需要总结的文本。
+          明白了，请发送你需要我总结的内容。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/07/17/Serv00%E6%9B%B4%E6%96%B0fuclaude%E8%84%9A%E6%9C%AC/#more" rel="contents">
@@ -816,7 +816,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          请提供需要总结的文本。
+          明白了，请发送你想要摘要的内容。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/07/17/Serv00%E6%9B%B4%E6%96%B0go-proxy-bingai%E8%84%9A%E6%9C%AC/#more" rel="contents">
@@ -901,7 +901,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          请提供需要总结的文本。
+          明白了，请提供文章内容。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/07/17/Serv00%E6%9B%B4%E6%96%B0new-api%E8%84%9A%E6%9C%AC/#more" rel="contents">
@@ -986,7 +986,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          在部署博客时，选择一个合适的图床是关键。虽然原项目Telegraph-Image能够满足基本需求，但存在上传权限不受限的问题，这可能被不法分子利用。为了解决这一问题，作者参考了两个改进方案：增加上传认证和防盗链限制。具体修改包括在`functions/upload.js`中增加认证密码，并在`functions/file/[id].js`中设置防盗链限制。此外，作者还更新了项目，增加了两个环境变量`AUTH_CODE`和`ALLOWED_DOMAINS`。最终，作者提供了一个更新的项目地址，并推荐了一个UI优化版本的分支仓库。
+          ai: 这篇文章介绍了如何部署图床服务Telegraph-Image，并解决了原始项目未对上传进行限制的问题。部署过程中，作者发现项目没有防止未经授权的使用，因此参考了其他方案如增加防盗链和认证功能，并在文件上传和访问中增加了相关的认证和域名限制。文章还提供了修改后的项目地址，并推荐了一个UI优化的分支仓库。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/07/17/%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8ATelegraph-Image/#more" rel="contents">

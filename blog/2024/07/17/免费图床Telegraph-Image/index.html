@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="hl128k Blog">
 <meta property="og:description" content="本文介绍了如何使用免费图床Telegraph-Image，并在部署后通过修改上传认证和防盗链功能来解决安全问题。参考了Telegraph-Image-auth项目，增加了上传时的认证机制和访问时的防盗链限制，最终提升了项目的安全性和可用性。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://telegraph-image.128765.xyz/file/6400327ab03db4aa0f921.png">
+<meta property="og:image" content="https://cloudflare-imgbed.128765.xyz/file/6400327ab03db4aa0f921.png">
 <meta property="og:image" content="https://cloudflare-imgbed.128765.xyz/file/ef4dff8ecccef1778ef9e.png">
 <meta property="article:published_time" content="2024-07-17T01:05:23.000Z">
 <meta property="article:modified_time" content="2024-08-28T18:27:48.000Z">
@@ -35,7 +35,7 @@
 <meta property="article:tag" content="cloudflare">
 <meta property="article:tag" content="Telegraph-Image">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://telegraph-image.128765.xyz/file/6400327ab03db4aa0f921.png">
+<meta name="twitter:image" content="https://cloudflare-imgbed.128765.xyz/file/6400327ab03db4aa0f921.png">
 
 <link rel="canonical" href="https://www.128765.xyz/2024/07/17/%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8ATelegraph-Image/">
 
@@ -229,7 +229,7 @@
 
       
         <h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>部署了博客少不了要用到图片的时候,没有一个合适的图床肯定是不行的,看了一圈还是决定再嫖一次大善人.</p>
-<h2 id="部署效果"><a href="#部署效果" class="headerlink" title="部署效果"></a>部署效果</h2><p><img src="https://telegraph-image.128765.xyz/file/6400327ab03db4aa0f921.png" alt="预览图片" title="预览图片"></p>
+<h2 id="部署效果"><a href="#部署效果" class="headerlink" title="部署效果"></a>部署效果</h2><p><img src="https://cloudflare-imgbed.128765.xyz/file/6400327ab03db4aa0f921.png" alt="预览图片" title="预览图片"></p>
 <h1 id="部署过程"><a href="#部署过程" class="headerlink" title="部署过程"></a>部署过程</h1><p>略<br>按项目文档一步一步走即可.项目<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NmLXBhZ2VzL1RlbGVncmFwaC1JbWFnZQ==">Telegraph-Image<i class="fa fa-external-link-alt"></i></span></p>
 <h1 id="部署后的问题"><a href="#部署后的问题" class="headerlink" title="部署后的问题"></a>部署后的问题</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原始项目没有对上传加以限制，导致会出现一个问题只有有人知道你部署的就可以使用你的图床，一般人使用到也没有什么问题，万一碰见不法分子就要遭殃了</p>
 <h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>翻阅项目的issues，这个问题已经有很多人提出，同样的也有很多解决方法被研究出来,如<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NmLXBhZ2VzL1RlbGVncmFwaC1JbWFnZS9pc3N1ZXMvOTc=">issues#97<i class="fa fa-external-link-alt"></i></span>,其中有两个解决方案很不错<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL01pY3JvTWF0cml4T3Jn">@MicroMatrixOrg<i class="fa fa-external-link-alt"></i></span>提出的<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NmLXBhZ2VzL1RlbGVncmFwaC1JbWFnZS9pc3N1ZXMvOTcjaXNzdWVjb21tZW50LTE5ODUxOTM4OTE=">增加防盗链<i class="fa fa-external-link-alt"></i></span>,和<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21heXRvbTIwMTY=">@maytom2016<i class="fa fa-external-link-alt"></i></span>修改的增加认证版本<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21heXRvbTIwMTYvVGVsZWdyYXBoLUltYWdlLWF1dGg=">Telegraph-Image-auth<i class="fa fa-external-link-alt"></i></span>很符合我的期望,不过<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21heXRvbTIwMTYvVGVsZWdyYXBoLUltYWdlLWF1dGg=">Telegraph-Image-auth<i class="fa fa-external-link-alt"></i></span>复刻版本有些老,我还是想要新版本的,而且还能同步官方最好.最后决定自己动手,好在修改难度不高.<br>于是基于这两个方案来修改我的</p>

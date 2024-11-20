@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"www.128765.xyz","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="本文介绍了如何使用免费图床Telegraph-Image，并在部署后通过修改上传认证和防盗链功能来解决安全问题。参考了Telegraph-Image-auth项目，增加了上传时的认证机制和访问时的防盗链限制，最终提升了项目的安全性和可用性。">
+  <meta name="description" content="前提部署了博客少不了要用到图片的时候,没有一个合适的图床肯定是不行的,看了一圈还是决定再嫖一次大善人. 部署效果 部署过程略按项目文档一步一步走即可.项目Telegraph-Image 部署后的问题问题原始项目没有对上传加以限制，导致会出现一个问题只有有人知道你部署的就可以使用你的图床，一般人使用到也没有什么问题，万一碰见不法分子就要遭殃了 解决翻阅项目的issues，这个问题已经有很多人提">
 <meta property="og:type" content="article">
 <meta property="og:title" content="免费图床Telegraph-Image">
 <meta property="og:url" content="https://www.128765.xyz/2024/07/17/%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8ATelegraph-Image/index.html">
 <meta property="og:site_name" content="hl128k Blog">
-<meta property="og:description" content="本文介绍了如何使用免费图床Telegraph-Image，并在部署后通过修改上传认证和防盗链功能来解决安全问题。参考了Telegraph-Image-auth项目，增加了上传时的认证机制和访问时的防盗链限制，最终提升了项目的安全性和可用性。">
+<meta property="og:description" content="前提部署了博客少不了要用到图片的时候,没有一个合适的图床肯定是不行的,看了一圈还是决定再嫖一次大善人. 部署效果 部署过程略按项目文档一步一步走即可.项目Telegraph-Image 部署后的问题问题原始项目没有对上传加以限制，导致会出现一个问题只有有人知道你部署的就可以使用你的图床，一般人使用到也没有什么问题，万一碰见不法分子就要遭殃了 解决翻阅项目的issues，这个问题已经有很多人提">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cloudflare-imgbed.128765.xyz/file/6400327ab03db4aa0f921.png">
 <meta property="og:image" content="https://cloudflare-imgbed.128765.xyz/file/ef4dff8ecccef1778ef9e.png">
@@ -234,8 +234,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>AI导读：</strong>该文本讨论了部署博客时使用图床的问题，并介绍了如何修改一个开源项目Telegraph-Image以增加图片上传认证和防盗链功能，确保图床的安全性。原项目没有对上传进行限制，导致可能被不法分子滥用。通过修改代码，增加了上传认证和防盗链措施，确保只有授权用户可以上传图片，同时限制了图片访问的域名。此外，文中提到为了同步官方项目，只对必要部分进行了修改，提供了GitHub项目地址并推荐了一个UI优化版本。</p>
-<!-- more --> 
+         <span id="more"></span> 
 <h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>部署了博客少不了要用到图片的时候,没有一个合适的图床肯定是不行的,看了一圈还是决定再嫖一次大善人.</p>
 <h2 id="部署效果"><a href="#部署效果" class="headerlink" title="部署效果"></a>部署效果</h2><p><img src="https://cloudflare-imgbed.128765.xyz/file/6400327ab03db4aa0f921.png" alt="预览图片" title="预览图片"></p>
 <h1 id="部署过程"><a href="#部署过程" class="headerlink" title="部署过程"></a>部署过程</h1><p>略<br>按项目文档一步一步走即可.项目<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NmLXBhZ2VzL1RlbGVncmFwaC1JbWFnZQ==">Telegraph-Image<i class="fa fa-external-link-alt"></i></span></p>

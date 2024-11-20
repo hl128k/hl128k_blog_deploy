@@ -6,7 +6,7 @@
   <link href="https://www.128765.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.128765.xyz/"/>
-  <updated>2024-11-20T01:44:02.790Z</updated>
+  <updated>2024-11-20T01:48:16.116Z</updated>
   <id>https://www.128765.xyz/</id>
   
   <author>
@@ -21,10 +21,17 @@
     <link href="https://www.128765.xyz/2024/11/20/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Lombok%E5%B1%9E%E6%80%A7%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3/"/>
     <id>https://www.128765.xyz/2024/11/20/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Lombok%E5%B1%9E%E6%80%A7%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3/</id>
     <published>2024-11-20T01:05:23.000Z</published>
-    <updated>2024-11-20T01:44:02.790Z</updated>
+    <updated>2024-11-20T01:48:16.116Z</updated>
     
     
-    <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;在一个项目中，作者遇到了使用 Lombok 自动生成 Getter 和 Setter 方法时，部分属性在映射工具（如 MapStruct）中无法正确识别的问题。经分析，问题源于 Lombok 对属性命名的处理与 JavaBeans 规范不完全兼容，导致工具错误解析方法名。为解决这一问题，作者尝试了几种方案，包括手动定义 Getter&amp;#x2F;Setter、调整 Lombok 行为、修改属性命名以及调整映射工具配置。最终，作者选择手动定义 Getter&amp;#x2F;Setter 方法，并总结出命名规范和工具兼容性的重要性，建议根据实际需求灵活选择解决方案。&lt;/p&gt;</summary>
+      
+      
+        
+        
+    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
+&lt;h1 id=&quot;前提&quot;&gt;&lt;a href=&quot;#前提&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
@@ -47,7 +54,14 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-    <summary type="html">这篇博客详细介绍了如何在Serv00服务器上使用PM2保活和部署glm-free-api应用的过程。用户在跟随大佬@saika发布的进程保活教程后，实践了部署LLM Red Team的项目glm-free-api。这篇博客不仅适合有基础的开发者学习如何在Serv00服务器上部署Node.js应用，同时也提供了详细的保活方案，有助于解决应用进程不稳定的问题。</summary>
+      
+      
+        
+        
+    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
+&lt;h1 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
@@ -68,7 +82,14 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-    <summary type="html">这篇博文记录了作者在使用Serv00服务器部署fuclaude时遇到进程保活问题的解决过程。作者首先通过面板添加了fuclaude需要的端口，并在SSH环境下创建了update_to_github.sh脚本，用于自动下载和更新fuclaude。接着，作者基于@saika的大佬教程，编写了保活脚本app.js和相关配置文件package.json，确保fuclaude进程在运行中途不被意外终止。最终，通过这套保活方案，成功地部署并稳定运行了fuclaude服务。</summary>
+      
+      
+        
+        
+    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
+&lt;h1 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
@@ -114,7 +135,14 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-    <summary type="html">这篇博文记录了作者在使用VPS部署项目时遇到的防火墙问题。由于VPS没有外部防火墙，作者使用了Ubuntu内部的ufw防火墙。然而，docker默认会无视ufw规则，直接修改iptables，导致防火墙失效。解决方案是将所有docker容器加入统一的网络，端口不对外开放，通过nginx容器统一处理请求。最终，作者提供了一个docker-compose配置示例，展示了如何通过这种方式安全地管理容器网络。</summary>
+      
+      
+        
+        
+    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
+&lt;h1 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
@@ -135,7 +163,14 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-    <summary type="html">这篇博文分享了作者在VPS上部署chat2api时遇到的网络问题，尤其是VPS的IP质量差，导致无法正常对话。由于市面上的梯子服务质量不佳，过CF盾的难度增加，购买高质量梯子成本又过高，作者最终找到一个通过使用Warp代理的方法。作者引用了@mikeee的解决方案，并提供了相关Docker配置，帮助其他用户解决类似问题，稳定通过盾并正常使用VPS。</summary>
+      
+      
+        
+        
+    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
+&lt;h1 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
@@ -156,7 +191,14 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-    <summary type="html">本文记录了如何使用Docker部署Gitea Actions，主要步骤包括配置Docker-Compose文件、生成act_runner的config文件、解决网络连接问题。强调Gitea Actions可以兼容GitHub Actions，实现本地运行无需修改代码。通过详细配置和处理网络问题，确保了act_runner可以正确连接Gitea实例，最终成功部署。详细步骤见文中。</summary>
+      
+      
+        
+        
+    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
+&lt;h1 id=&quot;前提&quot;&gt;&lt;a href=&quot;#前提&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
@@ -254,7 +296,14 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-    <summary type="html">本文介绍了如何使用免费图床Telegraph-Image，并在部署后通过修改上传认证和防盗链功能来解决安全问题。参考了Telegraph-Image-auth项目，增加了上传时的认证机制和访问时的防盗链限制，最终提升了项目的安全性和可用性。</summary>
+      
+      
+        
+        
+    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
+&lt;h1 id=&quot;前提&quot;&gt;&lt;a href=&quot;#前提&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
@@ -277,7 +326,7 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-    <summary type="html">本文介绍了如何使用GitHub Actions完成Hexo源码与编译后分离部署的全过程，包含详细的配置代码和注意事项。</summary>
+    <summary type="html">&lt;p&gt;部署过程就不多说了，网上很多现成的教程。就直接放actions代码了。&lt;br&gt;</summary>
     
     
     
@@ -299,10 +348,17 @@
     <link href="https://www.128765.xyz/2024/07/12/hello-world/"/>
     <id>https://www.128765.xyz/2024/07/12/hello-world/</id>
     <published>2024-07-12T08:00:00.000Z</published>
-    <updated>2024-11-19T17:43:43.000Z</updated>
+    <updated>2024-11-19T17:46:36.000Z</updated>
     
     
-    <summary type="html">你好，世界！</summary>
+      
+      
+        
+        
+    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
+&lt;p&gt;Hello</summary>
+        
+      
     
     
     

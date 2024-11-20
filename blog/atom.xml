@@ -6,7 +6,7 @@
   <link href="https://www.128765.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.128765.xyz/"/>
-  <updated>2024-11-20T01:48:16.116Z</updated>
+  <updated>2024-11-20T02:08:35.042Z</updated>
   <id>https://www.128765.xyz/</id>
   
   <author>
@@ -21,17 +21,10 @@
     <link href="https://www.128765.xyz/2024/11/20/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Lombok%E5%B1%9E%E6%80%A7%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3/"/>
     <id>https://www.128765.xyz/2024/11/20/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Lombok%E5%B1%9E%E6%80%A7%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3/</id>
     <published>2024-11-20T01:05:23.000Z</published>
-    <updated>2024-11-20T01:48:16.116Z</updated>
+    <updated>2024-11-20T02:08:35.042Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
-&lt;h1 id=&quot;前提&quot;&gt;&lt;a href=&quot;#前提&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;在一个使用 Lombok 的项目中，遇到了属性命名和工具映射的问题。通过 Lombok 的 @Data 注解自动生成 Getter 和 Setter 方法时，部分属性（如 oTime、mMs、mMl）无法正确映射，原因在于 Lombok 的命名规则与工具（如 MapStruct）之间的兼容性问题。具体来说，Lombok生成的方法命名符合 JavaBeans 规范，但某些工具错误解析了大小写差异，导致映射失败。为了解决该问题，提供了几种方案，包括手动定义 Getter&amp;#x2F;Setter 方法、调整 Lombok 的生成规则、修改属性命名或配置映射工具。最终选择手动定义 Getter&amp;#x2F;Setter 方法作为解决方案。通过此问题，作者反思了规范命名和工具兼容性的重要性，建议在开发中灵活调整解决方案。&lt;/p&gt;</summary>
     
     
     
@@ -54,14 +47,7 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
-&lt;h1 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;本文介绍了如何在Serv00服务器上使用pm2进行进程保活，解决了因重启、杀进程等操作导致进程意外停止的问题。通过参考@saika发布的进程保活解决方案，用户可以顺利部署LLM Red Team的glm-free-api项目。教程包括项目地址、所需工具安装、端口配置、SSH登录创建更新脚本等步骤，最后通过pm2启动并保持应用的运行状态。此外，还提到该教程仅供学习和娱乐使用，严禁商用。&lt;/p&gt;</summary>
     
     
     
@@ -82,14 +68,7 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
-&lt;h1 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;本文讨论了在Serv00服务器上使用fuclaude进行应用保活的实践过程。起初，用户通过pm2管理应用，但由于重启和进程杀死等操作，应用仍然会不时崩溃。为了解决这一问题，@saika发布了进程保活的最终解决方案。用户根据该方案，首先在面板中添加fuclaude端口，然后通过SSH登录并创建update_to_github.sh脚本以下载最新的fuclaude。接着，将app.js和package.json文件放入指定目录，并执行npm安装。最后，通过监控网页实现应用的保活。感谢@cself和@saika提供的相关部署教程。&lt;/p&gt;</summary>
     
     
     
@@ -135,14 +114,7 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
-&lt;h1 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;在使用VPS部署Docker项目时，由于该VPS没有外部防火墙，只能依赖Ubuntu内部的UFW防火墙。最初，通过禁止所有端口并仅放开必要端口来进行配置。然而，发现Docker会直接修改iptables，绕过UFW设置，导致端口依然可以访问。虽然禁用Docker修改iptables权限可以解决问题，但会影响Docker容器的内部通信，导致服务无法正常访问。最终解决方案是使用默认UFW防火墙规则禁止所有端口，同时让Docker容器加入统一网络，并通过Nginx容器处理外部访问，容器间使用服务名称进行通信。&lt;/p&gt;</summary>
     
     
     
@@ -163,14 +135,7 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
-&lt;h1 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;用户在使用VPS部署chat2api时遇到因IP质量差导致无法完成对话的问题。虽然可以通过梯子访问，但现有梯子效果不佳且需绕过CF盾，寻找更好的梯子代价高昂。最终，用户找到了一种解决方案，借助大佬@mikeee提供的warp代理，成功实现稳定的连接。&lt;/p&gt;</summary>
     
     
     
@@ -191,14 +156,7 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
-&lt;h1 id=&quot;前提&quot;&gt;&lt;a href=&quot;#前提&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;本文记录了在本地部署Gitea并使用Gitea Actions的过程，主要讨论了部署过程中遇到的几个关键问题。首先，部署Gitea时使用了Docker-Compose，配置部分较为简单。重点是在部署act_runner时遇到的一些坑，特别是在配置和网络问题上。act_runner需要先生成配置文件，必须删除已有配置后才能生成新的config.yaml。其次，网络问题主要出现在GITEA_INSTANCE_URL参数上，因为Docker-Compose中的depends_on配置并未满足act_runner的网络需求，导致容器无法正确连接到Gitea。解决方案包括创建独立网络并配置固定IP，以确保网络连接正常。&lt;/p&gt;</summary>
     
     
     
@@ -296,14 +254,7 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
-&lt;h1 id=&quot;前提&quot;&gt;&lt;a href=&quot;#前提&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;本文讨论了在部署个人博客时使用图床的重要性，并介绍了基于Telegraph-Image项目的部署过程。虽然原项目缺乏上传限制，可能被不法分子滥用，但作者参考了多个解决方案，对上传增加了认证功能，并加入了防盗链限制。最终，作者在遵循必要修改的基础上，保证了与官方版本的同步，并提供了更新的项目地址和相关预览链接，以供他人参考。&lt;/p&gt;</summary>
     
     
     
@@ -326,7 +277,7 @@
     <updated>2024-08-28T18:27:48.000Z</updated>
     
     
-    <summary type="html">&lt;p&gt;部署过程就不多说了，网上很多现成的教程。就直接放actions代码了。&lt;br&gt;</summary>
+    <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;在部署过程中，遇到使用git拉取主题时发生了项目冲突，导致提交时主题文件夹变成了一个文件。后来改为以子项目的方式拉取主题，问题得以解决。如果不使用子项目，可以删除相关部分代码。&lt;/p&gt;</summary>
     
     
     
@@ -348,17 +299,10 @@
     <link href="https://www.128765.xyz/2024/07/12/hello-world/"/>
     <id>https://www.128765.xyz/2024/07/12/hello-world/</id>
     <published>2024-07-12T08:00:00.000Z</published>
-    <updated>2024-11-19T17:46:36.000Z</updated>
+    <updated>2024-11-19T18:05:45.000Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html"> &lt;span id=&quot;more&quot;&gt;&lt;/span&gt; 
-&lt;p&gt;Hello</summary>
-        
-      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;你好，世界！&lt;/p&gt;</summary>
     
     
     

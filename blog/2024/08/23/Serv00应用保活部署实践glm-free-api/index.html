@@ -230,7 +230,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>Serv00的服务器白嫖还是挺舒服,跟着大佬们的教程部署了很多东西,使用pm2给应用保活,但是重启和杀进程外加清定时任务,导致进程还是时不时的死掉</p>
+        <p><strong>AI导读：</strong>本文介绍了如何在Serv00服务器上使用pm2进行进程保活，解决了应用在重启、杀进程和清理定时任务后的崩溃问题。通过参考@saika的进程保活解决方案，作者部署了LLM Red Team的glm-free-api项目。部署过程中，首先需要安装pm2并为项目设置端口，然后创建更新脚本和配置文件，完成后使用pm2启动应用并通过监控网页保持应用运行。此方法同样适用于其他类似项目，只需修改启动命令即可。</p>
+<!-- more --> 
+<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>Serv00的服务器白嫖还是挺舒服,跟着大佬们的教程部署了很多东西,使用pm2给应用保活,但是重启和杀进程外加清定时任务,导致进程还是时不时的死掉</p>
 <p>这时候大佬<span class="exturl" data-url="aHR0cHM6Ly9saW51eC5kby91L3NhaWth">@saika<i class="fa fa-external-link-alt"></i></span>发布了<span class="exturl" data-url="aHR0cHM6Ly9zYWlrYS51cy5rZy8yMDI0LzA4LzE1L3NlcnYwMC1rZWVwLWFsaXZlLw==">进程保活最终解决方案<i class="fa fa-external-link-alt"></i></span>,解决了这个痛点</p>
 <p>以<span class="exturl" data-url="aHR0cHM6Ly9saW51eC5kby91L3NhaWth">@saika<i class="fa fa-external-link-alt"></i></span>示例作为参考,实践部署<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0xMTS1SZWQtVGVhbQ==">LLM Red Team<i class="fa fa-external-link-alt"></i></span>的glm-free-api</p>
 <p>本人学艺不精,直接使用nodejs启动不了项目,命令带不进去端口,只用使用pm2来启动</p>

@@ -6,7 +6,7 @@
   <link href="https://www.128765.xyz/atom.xml" rel="self"/>
   
   <link href="https://www.128765.xyz/"/>
-  <updated>2024-11-20T01:24:02.226Z</updated>
+  <updated>2024-11-20T01:44:02.790Z</updated>
   <id>https://www.128765.xyz/</id>
   
   <author>
@@ -21,16 +21,10 @@
     <link href="https://www.128765.xyz/2024/11/20/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Lombok%E5%B1%9E%E6%80%A7%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3/"/>
     <id>https://www.128765.xyz/2024/11/20/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Lombok%E5%B1%9E%E6%80%A7%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3/</id>
     <published>2024-11-20T01:05:23.000Z</published>
-    <updated>2024-11-20T01:24:02.226Z</updated>
+    <updated>2024-11-20T01:44:02.790Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;前提&quot;&gt;&lt;a href=&quot;#前提&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;在一个项目中，作者遇到了使用 Lombok 自动生成 Getter 和 Setter 方法时，部分属性在映射工具（如 MapStruct）中无法正确识别的问题。经分析，问题源于 Lombok 对属性命名的处理与 JavaBeans 规范不完全兼容，导致工具错误解析方法名。为解决这一问题，作者尝试了几种方案，包括手动定义 Getter&amp;#x2F;Setter、调整 Lombok 行为、修改属性命名以及调整映射工具配置。最终，作者选择手动定义 Getter&amp;#x2F;Setter 方法，并总结出命名规范和工具兼容性的重要性，建议根据实际需求灵活选择解决方案。&lt;/p&gt;</summary>
     
     
     
@@ -305,7 +299,7 @@
     <link href="https://www.128765.xyz/2024/07/12/hello-world/"/>
     <id>https://www.128765.xyz/2024/07/12/hello-world/</id>
     <published>2024-07-12T08:00:00.000Z</published>
-    <updated>2024-08-28T18:31:59.000Z</updated>
+    <updated>2024-11-19T17:43:43.000Z</updated>
     
     
     <summary type="html">你好，世界！</summary>

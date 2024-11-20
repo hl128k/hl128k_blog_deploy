@@ -230,7 +230,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>整了一个vps，想要docker部署一些项目，这渣机根本没有外部防火墙，只能使用Ubuntu内部的ufw防火墙。</p>
+        <p><strong>AI导读：</strong>在部署Docker项目时，用户面临VPS没有外部防火墙只能依赖Ubuntu内部的ufw防火墙问题。初步设置为禁止所有流量并放开特定端口后，发现Docker容器无视ufw的设置，直接修改iptables规则，导致端口依旧可访问。尝试禁用Docker对iptables的修改权限时，导致Docker内部通信失败。最终，采用默认ufw设置为禁止所有流量，并让所有Docker容器加入统一网络，通过nginx容器统一处理端口，不对外开放，仅使用服务名称进行访问，如<span class="exturl" data-url="aHR0cDovL2RiOjMzMDbjgII=">http://db:3306。<i class="fa fa-external-link-alt"></i></span></p>
+<!-- more --> 
+<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>整了一个vps，想要docker部署一些项目，这渣机根本没有外部防火墙，只能使用Ubuntu内部的ufw防火墙。</p>
 <p>禁止全部，然后放开使用端口，简单</p>
 <p>docker启动，nginx映射正常，完美？</p>
 <p>端口还能继续访问？docker无视ufw，直接修改iptables</p>

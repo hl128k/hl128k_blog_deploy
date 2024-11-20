@@ -230,7 +230,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>Serv00的服务器白嫖还是挺舒服,跟着大佬们的教程部署了很多东西,使用pm2给应用保活,但是重启和杀进程外加清定时任务,导致进程还是时不时的死掉</p>
+        <p><strong>AI导读：</strong>这篇文章描述了在Serv00服务器上使用PM2部署应用并保持进程存活的过程。作者在遇到进程时常死掉的问题后，参考了@saika的进程保活方案，并成功解决了问题。实践过程中，作者创建了一个新网站，并通过SSH进入相应目录，下载了最新的fuclaude，并将相关文件放置在指定目录下。通过执行npm安装命令并访问监控网页，应用得以保持存活。文章最后感谢了@cself的fuclaude部署教程和@saika的进程保活教程。</p>
+<!-- more --> 
+<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>Serv00的服务器白嫖还是挺舒服,跟着大佬们的教程部署了很多东西,使用pm2给应用保活,但是重启和杀进程外加清定时任务,导致进程还是时不时的死掉</p>
 <p>这时候大佬<span class="exturl" data-url="aHR0cHM6Ly9saW51eC5kby91L3NhaWth">@saika<i class="fa fa-external-link-alt"></i></span>发布了<span class="exturl" data-url="aHR0cHM6Ly9zYWlrYS51cy5rZy8yMDI0LzA4LzE1L3NlcnYwMC1rZWVwLWFsaXZlLw==">进程保活最终解决方案<i class="fa fa-external-link-alt"></i></span>,解决了这个痛点</p>
 <p>以<span class="exturl" data-url="aHR0cHM6Ly9saW51eC5kby91L3NhaWth">@saika<i class="fa fa-external-link-alt"></i></span>示例作为参考,实践部署始皇的fuclaude</p>
 <h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><p>面板Port reservation点击Add port 添加要使用的fuclaude端口,这里我使用的是<br>30277<br>接着按照下表 Add a New Website：</p>

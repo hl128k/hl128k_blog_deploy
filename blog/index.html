@@ -194,7 +194,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-11-20 09:05:23 / 修改时间：09:24:02" itemprop="dateCreated datePublished" datetime="2024-11-20T09:05:23+08:00">2024-11-20</time>
+              <time title="创建时间：2024-11-20 09:05:23 / 修改时间：09:44:02" itemprop="dateCreated datePublished" datetime="2024-11-20T09:05:23+08:00">2024-11-20</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -221,45 +221,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>在最近的一个项目中，我遇到了一次令人头疼却颇具学习价值的问题。这篇文章记录了这个问题的背景、原因分析以及最终的解决方案，希望对大家有所帮助。</p>
-<h2 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h2><p>在项目中，我使用了 Lombok 来简化代码。在一个实体类中定义了一些属性，比如 dataId, epiLat, oTime, mMs 和 mMl 等。通过 @Data 注解，我让 Lombok 自动为这些属性生成 Getter 和 Setter。然而，当我尝试用 MapStruct 或其他工具对这些属性进行映射时，出现了以下错误提示：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">No property named &quot;oTime&quot; exists in source parameter(s). Did you mean &quot;OTime&quot;?</span><br></pre></td></tr></table></figure>
-
-<p>奇怪的是，dataId 和 epiLat 这些属性都能正常映射，只有 oTime, mMs, mMl 报错。这让我百思不得其解，毕竟它们的定义方式是一样的。</p>
-<h3 id="问题原因分析"><a href="#问题原因分析" class="headerlink" title="问题原因分析"></a>问题原因分析</h3><p>通过查阅资料和调试，我发现问题出在 属性命名规范 和 Lombok 的行为 上。这里分两点来说：</p>
-<ol>
-<li><strong>JavaBeans 规范与 Lombok 的 Getter&#x2F;Setter 生成规则</strong><br>根据 JavaBeans 规范：<ul>
-<li>如果属性名的第一个字母小写，而后面紧跟一个大写字母，比如 oTime，Lombok 会将它识别为驼峰命名，并生成 getOTime() 和 setOTime() 方法。</li>
-<li>对于类似 mMs 的属性，Lombok 会生成 getMMs() 和 setMMs()。<br>这些方法名理论上是符合规范的，但某些工具（如 MapStruct）会错误地解析为 getoTime() 和 setoTime()，导致工具无法正确找到这些方法。</li>
-</ul>
-</li>
-<li><strong>属性大小写的差异导致工具误解析</strong><br>部分工具（包括 MapStruct 和一些框架）对属性名的解析可能不够智能，尤其是以小写字母开头但紧接着有大写字母的属性。它们会认为 oTime 的 Getter 方法应该是 getoTime()，而不是 Lombok 实际生成的 getOTime()。</li>
-</ol>
-<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>为了解决这个问题，我尝试了多种方法，最终找到了一些有效的方案。</p>
-<h3 id="方案-1：手动定义-Getter-Setter"><a href="#方案-1：手动定义-Getter-Setter" class="headerlink" title="方案 1：手动定义 Getter&#x2F;Setter"></a>方案 1：手动定义 Getter&#x2F;Setter</h3><p>最直接的办法就是手动为问题属性定义 Getter 和 Setter 方法，明确指定方法名。例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String oTime;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getoTime</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> oTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setoTime</span><span class="params">(String oTime)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.oTime = oTime;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样可以完全绕过 Lombok 的自动生成逻辑，避免工具和 Lombok 之间的命名解析差异。</p>
-<h3 id="方案-2：调整-Lombok-的生成行为"><a href="#方案-2：调整-Lombok-的生成行为" class="headerlink" title="方案 2：调整 Lombok 的生成行为"></a>方案 2：调整 Lombok 的生成行为</h3><p>如果希望继续使用 Lombok，可以通过 @Getter 和 @Setter 注解为特定字段指定方法名。例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">    <span class="meta">@Getter(name = &quot;getoTime&quot;)</span></span><br><span class="line">    <span class="meta">@Setter(name = &quot;setoTime&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String oTime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样，Lombok 会按指定名称生成方法，满足工具对方法名的要求。</p>
-<h3 id="方案-3：调整属性命名"><a href="#方案-3：调整属性命名" class="headerlink" title="方案 3：调整属性命名"></a>方案 3：调整属性命名</h3><p>另一个简单直接的解决办法是调整字段名，使其符合更常见的 Java 命名规范。例如：</p>
-<p>将 oTime 改为 otime。<br>将 mMs 改为 mms 或 mmS。<br>这样，Lombok 会生成更符合工具预期的 Getter&#x2F;Setter 方法。</p>
-<h3 id="方案-4：调整映射工具的配置"><a href="#方案-4：调整映射工具的配置" class="headerlink" title="方案 4：调整映射工具的配置"></a>方案 4：调整映射工具的配置</h3><p>对于使用 MapStruct 的场景，可以通过 @Mapping 注解手动指定映射规则。例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">EarthquakeConvert</span> &#123;</span><br><span class="line">    <span class="meta">@Mapping(source = &quot;OTime&quot;, target = &quot;oTime&quot;)</span></span><br><span class="line">    TargetClass <span class="title function_">toTarget</span><span class="params">(SourceClass source)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>如果是全局的映射需求，也可以调整 MapStruct 的全局配置，让它不区分大小写：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mapstruct.defaultPropertyNameStrategy=CASE_INSENSITIVE</span><br></pre></td></tr></table></figure>
-
-<h2 id="最终解决方案"><a href="#最终解决方案" class="headerlink" title="最终解决方案"></a>最终解决方案</h2><p>在我的场景中，我选择了 方案 1 ——手动定义 Getter 和 Setter 方法。尽管这一方法略显繁琐，但它可以直接解决问题，且不会影响项目的其他部分。对于类似问题，我也建议大家根据实际需求选择适合的方案。</p>
-<h2 id="总结与反思"><a href="#总结与反思" class="headerlink" title="总结与反思"></a>总结与反思</h2><p>通过这次问题的排查，我深刻认识到 JavaBeans 规范和工具之间的微妙差异，以及 Lombok 在某些特殊场景下的局限性。这些经验对我有几个启发：</p>
-<ol>
-<li>规范命名的重要性：尽量遵循常见的 Java 命名习惯，可以避免很多工具之间的兼容性问题。</li>
-<li>工具行为要了解透彻：Lombok 和 MapStruct 的行为虽然强大，但在使用前最好详细了解它们的实现机制。</li>
-<li>灵活选择解决方案：面对问题时，不必拘泥于一种方式，根据项目需求和团队习惯灵活调整。</li>
-</ol>
-
+          <p><strong>AI导读：</strong>在一个项目中，作者遇到了使用 Lombok 自动生成 Getter 和 Setter 方法时，部分属性在映射工具（如 MapStruct）中无法正确识别的问题。经分析，问题源于 Lombok 对属性命名的处理与 JavaBeans 规范不完全兼容，导致工具错误解析方法名。为解决这一问题，作者尝试了几种方案，包括手动定义 Getter&#x2F;Setter、调整 Lombok 行为、修改属性命名以及调整映射工具配置。最终，作者选择手动定义 Getter&#x2F;Setter 方法，并总结出命名规范和工具兼容性的重要性，建议根据实际需求灵活选择解决方案。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/11/20/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Lombok%E5%B1%9E%E6%80%A7%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

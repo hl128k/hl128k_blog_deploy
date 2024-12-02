@@ -169,6 +169,128 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.128765.xyz/2024/12/02/%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95%EF%BC%9ATypeScript%E6%8E%A8%E6%96%AD%E7%B1%BB%E5%9E%8B%E5%AF%BC%E8%87%B4%E7%9A%84never%E9%94%99%E8%AF%AF%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hl128k">
+      <meta itemprop="description" content="hl128k的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hl128k Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/02/%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95%EF%BC%9ATypeScript%E6%8E%A8%E6%96%AD%E7%B1%BB%E5%9E%8B%E5%AF%BC%E8%87%B4%E7%9A%84never%E9%94%99%E8%AF%AF%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">错误记录：TypeScript推断类型导致的never错误及解决方案</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-12-02 17:05:23 / 修改时间：17:23:44" itemprop="dateCreated datePublished" datetime="2024-12-02T17:05:23+08:00">2024-12-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">技术教程</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/TypeScript/" itemprop="url" rel="index"><span itemprop="name">TypeScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+           <span id="more"></span> 
+<h1 id="错误记录：TypeScript-推断类型导致的-never-错误及解决方案"><a href="#错误记录：TypeScript-推断类型导致的-never-错误及解决方案" class="headerlink" title="错误记录：TypeScript 推断类型导致的 never 错误及解决方案"></a><strong>错误记录：TypeScript 推断类型导致的 <code>never</code> 错误及解决方案</strong></h1><h2 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a><strong>问题背景</strong></h2><p>在开发一个三维场景管理系统时，我遇到一个奇怪的 TypeScript 报错。以下是两段核心代码片段：</p>
+<h3 id="第一段代码：工作正常"><a href="#第一段代码：工作正常" class="headerlink" title="第一段代码：工作正常"></a><strong>第一段代码：工作正常</strong></h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">myProjectManager.<span class="property">sceneObjectsManager</span>.<span class="property">sceneObjects</span>.<span class="title function_">forEach</span>(<span class="function">(<span class="params">sceneObject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (sceneObject <span class="keyword">instanceof</span> <span class="title class_">ES3DTileset</span>) &#123;</span><br><span class="line">    sceneObject.<span class="property">allowPicking</span> = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="第二段代码：报错"><a href="#第二段代码：报错" class="headerlink" title="第二段代码：报错"></a><strong>第二段代码：报错</strong></h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">notES3DTilesetPick</span> = (<span class="params"><span class="attr">sceneObjects</span>: <span class="title class_">Set</span>&lt;<span class="title class_">SceneObject</span>&gt;</span>) =&gt; &#123;</span><br><span class="line">  sceneObjects.<span class="title function_">forEach</span>(<span class="function">(<span class="params">sceneObject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (sceneObject <span class="keyword">instanceof</span> <span class="title class_">ES3DTileset</span>) &#123;</span><br><span class="line">      sceneObject.<span class="property">allowPicking</span> = <span class="literal">false</span>; <span class="comment">// 报错</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>TypeScript 报错如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Property &#x27;allowPicking&#x27; does not exist on type &#x27;never&#x27;.</span><br><span class="line">The intersection &#x27;SceneObject &amp; ES3DTileset&#x27; was reduced to &#x27;never&#x27; because property &#x27;_id&#x27; exists in multiple constituents and is private in some.</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a><strong>问题分析</strong></h2><h3 id="1-为什么第一段代码正常？"><a href="#1-为什么第一段代码正常？" class="headerlink" title="1. 为什么第一段代码正常？"></a><strong>1. 为什么第一段代码正常？</strong></h3><p>在第一段代码中，TypeScript 能够正常推断 <code>sceneObject</code> 的类型。可能的原因包括：</p>
+<ul>
+<li><strong>类型未显式定义</strong>：<code>sceneObjectsManager.sceneObjects</code> 的类型是宽泛的，比如 <code>Set&lt;any&gt;</code> 或 <code>Set&lt;SceneObject | ES3DTileset&gt;</code>。在这种情况下，<code>instanceof</code> 类型缩减可以正常生效。</li>
+<li><strong>推断宽松</strong>：如果没有显式类型定义，TypeScript 会尽量宽松处理，并允许 <code>instanceof</code> 动态缩减类型。</li>
+<li><strong>未检查私有属性冲突</strong>：TypeScript 不会强制检查类型中可能存在的私有属性冲突。</li>
+</ul>
+<hr>
+<h3 id="2-为什么第二段代码报错？"><a href="#2-为什么第二段代码报错？" class="headerlink" title="2. 为什么第二段代码报错？"></a><strong>2. 为什么第二段代码报错？</strong></h3><p>在第二段代码中，<code>sceneObjects</code> 的类型显式定义为 <code>Set&lt;SceneObject&gt;</code>，导致 TypeScript 在进行 <code>instanceof</code> 类型缩减时触发了更严格的检查。</p>
+<h4 id="导致报错的具体原因"><a href="#导致报错的具体原因" class="headerlink" title="导致报错的具体原因"></a><strong>导致报错的具体原因</strong></h4><ul>
+<li><strong>私有属性冲突</strong>：<code>SceneObject</code> 和 <code>ES3DTileset</code> 类型可能都定义了私有属性 <code>_id</code>，即使属性名称和类型一致，TypeScript 也认为它们是冲突的，因为 <code>private</code> 属性是由声明类独占的。</li>
+<li>**交集缩减为 <code>never</code>**：TypeScript 尝试将 <code>SceneObject</code> 与 <code>ES3DTileset</code> 的交集作为缩减后的类型，但由于 <code>_id</code> 的冲突，交集被简化为 <code>never</code>，导致无法访问 <code>allowPicking</code>。</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h4><p>TypeScript 的类型检查机制更严格，显式类型声明要求更明确的类型兼容性，导致了错误。</p>
+<hr>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h2><h3 id="1-使用类型断言"><a href="#1-使用类型断言" class="headerlink" title="1. 使用类型断言"></a><strong>1. 使用类型断言</strong></h3><p>最简单的解决方法是告诉 TypeScript 我们确信 <code>sceneObject</code> 是 <code>ES3DTileset</code> 类型：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">notES3DTilesetPick</span> = (<span class="params"><span class="attr">sceneObjects</span>: <span class="title class_">Set</span>&lt;<span class="title class_">SceneObject</span>&gt;</span>) =&gt; &#123;</span><br><span class="line">  sceneObjects.<span class="title function_">forEach</span>(<span class="function">(<span class="params">sceneObject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (sceneObject <span class="keyword">instanceof</span> <span class="title class_">ES3DTileset</span>) &#123;</span><br><span class="line">      (sceneObject <span class="keyword">as</span> <span class="title class_">ES3DTileset</span>).<span class="property">allowPicking</span> = <span class="literal">false</span>; <span class="comment">// 类型断言</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-定义类型守卫"><a href="#2-定义类型守卫" class="headerlink" title="2. 定义类型守卫"></a><strong>2. 定义类型守卫</strong></h3><p>创建一个类型守卫函数，明确告知 TypeScript <code>sceneObject</code> 是 <code>ES3DTileset</code>：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isES3DTileset = (<span class="attr">obj</span>: <span class="title class_">SceneObject</span>): obj is <span class="title class_">ES3DTileset</span> =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> obj <span class="keyword">instanceof</span> <span class="title class_">ES3DTileset</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">notES3DTilesetPick</span> = (<span class="params"><span class="attr">sceneObjects</span>: <span class="title class_">Set</span>&lt;<span class="title class_">SceneObject</span>&gt;</span>) =&gt; &#123;</span><br><span class="line">  sceneObjects.<span class="title function_">forEach</span>(<span class="function">(<span class="params">sceneObject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">isES3DTileset</span>(sceneObject)) &#123;</span><br><span class="line">      sceneObject.<span class="property">allowPicking</span> = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这种方式更加语义化，适合大型项目。</li>
+</ul>
+<h3 id="3-修改类型定义"><a href="#3-修改类型定义" class="headerlink" title="3. 修改类型定义"></a><strong>3. 修改类型定义</strong></h3><p>如果可以修改 <code>SceneObject</code> 和 <code>ES3DTileset</code> 的定义，确保它们的 <code>private</code> 成员一致，或者将冲突的 <code>private</code> 属性改为 <code>protected</code>：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SceneObject</span> &#123;</span><br><span class="line">  <span class="keyword">protected</span> <span class="attr">_id</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ES3DTileset</span> <span class="keyword">extends</span> <span class="title class_ inherited__">SceneObject</span> &#123;</span><br><span class="line">  <span class="attr">allowPicking</span>: <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-使用联合类型"><a href="#4-使用联合类型" class="headerlink" title="4. 使用联合类型"></a><strong>4. 使用联合类型</strong></h3><p>修改 <code>sceneObjects</code> 的类型定义为联合类型，避免交集冲突：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">notES3DTilesetPick</span> = (<span class="params"><span class="attr">sceneObjects</span>: <span class="title class_">Set</span>&lt;<span class="title class_">SceneObject</span> | <span class="title class_">ES3DTileset</span>&gt;</span>) =&gt; &#123;</span><br><span class="line">  sceneObjects.<span class="title function_">forEach</span>(<span class="function">(<span class="params">sceneObject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (sceneObject <span class="keyword">instanceof</span> <span class="title class_">ES3DTileset</span>) &#123;</span><br><span class="line">      sceneObject.<span class="property">allowPicking</span> = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-宽松类型约束"><a href="#5-宽松类型约束" class="headerlink" title="5. 宽松类型约束"></a><strong>5. 宽松类型约束</strong></h3><p>如果对类型安全要求较低，可以将 <code>sceneObjects</code> 定义为宽松类型：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">notES3DTilesetPick</span> = (<span class="params"><span class="attr">sceneObjects</span>: <span class="title class_">Set</span>&lt;<span class="built_in">unknown</span>&gt;</span>) =&gt; &#123;</span><br><span class="line">  sceneObjects.<span class="title function_">forEach</span>(<span class="function">(<span class="params">sceneObject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (sceneObject <span class="keyword">instanceof</span> <span class="title class_">ES3DTileset</span>) &#123;</span><br><span class="line">      (sceneObject <span class="keyword">as</span> <span class="title class_">ES3DTileset</span>).<span class="property">allowPicking</span> = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a><strong>最佳实践</strong></h2><p>推荐使用 <strong>类型守卫</strong> 或 <strong>联合类型</strong>，这两种方法既能解决问题，又能保留 TypeScript 的类型安全性：</p>
+<ul>
+<li><strong>类型守卫</strong>：适合需要显式区分类型的复杂场景。</li>
+<li><strong>联合类型</strong>：适合能够确定对象来源的场景。</li>
+</ul>
+<hr>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>这次问题源于 TypeScript 对类型推断的严格性。当类型定义显式声明为 <code>Set&lt;SceneObject&gt;</code> 时，交集类型检查因私有属性冲突而失败；而未显式声明类型时，TypeScript 自动宽松推断类型，从而避免了问题。</p>
+<p>通过调整类型定义、使用类型断言或类型守卫，可以灵活解决此类问题。在开发中，应根据实际需求选择解决方案，既保证类型安全，也能简化代码逻辑。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.128765.xyz/2024/11/20/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Lombok%E5%B1%9E%E6%80%A7%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -192,10 +314,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-11-20 09:05:23 / 修改时间：10:08:35" itemprop="dateCreated datePublished" datetime="2024-11-20T09:05:23+08:00">2024-11-20</time>
+              <time title="创建时间：2024-11-20 09:05:23" itemprop="dateCreated datePublished" datetime="2024-11-20T09:05:23+08:00">2024-11-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-12-02 17:23:44" itemprop="dateModified" datetime="2024-12-02T17:23:44+08:00">2024-12-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -924,91 +1052,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.128765.xyz/2024/07/17/Serv00%E6%9B%B4%E6%96%B0new-api%E8%84%9A%E6%9C%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hl128k">
-      <meta itemprop="description" content="hl128k的博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hl128k Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/07/17/Serv00%E6%9B%B4%E6%96%B0new-api%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">Serv00 更新 new-api 脚本</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-07-17 16:24:20" itemprop="dateCreated datePublished" datetime="2024-07-17T16:24:20+08:00">2024-07-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-08-29 02:27:48" itemprop="dateModified" datetime="2024-08-29T02:27:48+08:00">2024-08-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%84%9A%E6%9C%AC/" itemprop="url" rel="index"><span itemprop="name">脚本</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%84%9A%E6%9C%AC/Serv00/" itemprop="url" rel="index"><span itemprop="name">Serv00</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          Serv00 更新 new-api 脚本
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/07/17/Serv00%E6%9B%B4%E6%96%B0new-api%E8%84%9A%E6%9C%AC/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1078,20 +1121,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

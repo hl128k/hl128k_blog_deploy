@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.128765.xyz","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.hl128k.site","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="AI导读：本文记录了在本地部署Gitea并使用Gitea Actions的过程，主要讨论了部署过程中遇到的几个关键问题。首先，部署Gitea时使用了Docker-Compose，配置部分较为简单。重点是在部署act_runner时遇到的一些坑，特别是在配置和网络问题上。act_runner需要先生成配置文件，必须删除已有配置后才能生成新的config.yaml。其次，网络问题主要出现在GITEA_">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker 部署 Gitea Actions">
-<meta property="og:url" content="https://www.128765.xyz/2024/07/19/Docker%E9%83%A8%E7%BD%B2GiteaActions/index.html">
+<meta property="og:url" content="https://www.hl128k.site/2024/07/19/Docker%E9%83%A8%E7%BD%B2GiteaActions/index.html">
 <meta property="og:site_name" content="hl128k Blog">
 <meta property="og:description" content="AI导读：本文记录了在本地部署Gitea并使用Gitea Actions的过程，主要讨论了部署过程中遇到的几个关键问题。首先，部署Gitea时使用了Docker-Compose，配置部分较为简单。重点是在部署act_runner时遇到的一些坑，特别是在配置和网络问题上。act_runner需要先生成配置文件，必须删除已有配置后才能生成新的config.yaml。其次，网络问题主要出现在GITEA_">
 <meta property="og:locale" content="zh_CN">
@@ -34,7 +34,7 @@
 <meta property="article:tag" content="Gitea">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.128765.xyz/2024/07/19/Docker%E9%83%A8%E7%BD%B2GiteaActions/">
+<link rel="canonical" href="https://www.hl128k.site/2024/07/19/Docker%E9%83%A8%E7%BD%B2GiteaActions/">
 
 
 <script id="page-configurations">
@@ -174,7 +174,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.128765.xyz/2024/07/19/Docker%E9%83%A8%E7%BD%B2GiteaActions/">
+    <link itemprop="mainEntityOfPage" href="https://www.hl128k.site/2024/07/19/Docker%E9%83%A8%E7%BD%B2GiteaActions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -406,7 +406,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

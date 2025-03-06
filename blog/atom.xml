@@ -6,7 +6,7 @@
   <link href="https://www.hl128k.site/atom.xml" rel="self"/>
   
   <link href="https://www.hl128k.site/"/>
-  <updated>2025-02-27T09:03:14.150Z</updated>
+  <updated>2025-03-06T11:29:09.716Z</updated>
   <id>https://www.hl128k.site/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title></title>
+    <link href="https://www.hl128k.site/2025/03/06/Nginx%E5%A4%9A%E5%B1%82%E4%BB%A3%E7%90%86%E5%BC%95%E5%8F%91%E7%9A%84DNS%E8%A7%A3%E6%9E%90%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E8%AE%B0%E5%BD%95/"/>
+    <id>https://www.hl128k.site/2025/03/06/Nginx%E5%A4%9A%E5%B1%82%E4%BB%A3%E7%90%86%E5%BC%95%E5%8F%91%E7%9A%84DNS%E8%A7%A3%E6%9E%90%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E8%AE%B0%E5%BD%95/</id>
+    <published>2025-03-06T11:29:09.716Z</published>
+    <updated>2025-03-06T11:29:09.716Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Nginx多层代理引发的DNS解析异常问题排查记录&quot;&gt;&lt;a href=&quot;#Nginx多层代理引发的DNS解析异常问题排查记录&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>错误记录：TypeScript推断类型导致的never错误及解决方案</title>
     <link href="https://www.hl128k.site/2024/12/02/%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95%EF%BC%9ATypeScript%E6%8E%A8%E6%96%AD%E7%B1%BB%E5%9E%8B%E5%AF%BC%E8%87%B4%E7%9A%84never%E9%94%99%E8%AF%AF%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
     <id>https://www.hl128k.site/2024/12/02/%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95%EF%BC%9ATypeScript%E6%8E%A8%E6%96%AD%E7%B1%BB%E5%9E%8B%E5%AF%BC%E8%87%B4%E7%9A%84never%E9%94%99%E8%AF%AF%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</id>
     <published>2024-12-02T09:05:23.000Z</published>
-    <updated>2025-02-27T09:03:14.150Z</updated>
+    <updated>2025-03-06T11:29:09.717Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;在开发三维场景管理系统时，遇到 TypeScript 类型推断导致的错误。问题发生在显式定义类型为 &lt;code&gt;Set&amp;lt;SceneObject&amp;gt;&lt;/code&gt; 时，由于 &lt;code&gt;SceneObject&lt;/code&gt; 和 &lt;code&gt;ES3DTileset&lt;/code&gt; 可能具有相同的私有属性 &lt;code&gt;_id&lt;/code&gt;，导致 TypeScript 在进行类型缩减时将它们的交集推导为 &lt;code&gt;never&lt;/code&gt; 类型，从而无法访问某些属性。解决方案包括使用类型断言、定义类型守卫、修改类型定义、使用联合类型或放宽类型约束。最佳实践推荐使用类型守卫或联合类型，以平衡类型安全性和代码简洁性。&lt;/p&gt;</summary>
@@ -44,7 +65,7 @@
     <link href="https://www.hl128k.site/2024/11/20/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Lombok%E5%B1%9E%E6%80%A7%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3/"/>
     <id>https://www.hl128k.site/2024/11/20/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Lombok%E5%B1%9E%E6%80%A7%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3/</id>
     <published>2024-11-20T01:05:23.000Z</published>
-    <updated>2025-02-27T09:03:14.150Z</updated>
+    <updated>2025-03-06T11:29:09.717Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;strong&gt;AI导读：&lt;/strong&gt;在一个使用 Lombok 的项目中，遇到了属性命名和工具映射的问题。通过 Lombok 的 @Data 注解自动生成 Getter 和 Setter 方法时，部分属性（如 oTime、mMs、mMl）无法正确映射，原因在于 Lombok 的命名规则与工具（如 MapStruct）之间的兼容性问题。具体来说，Lombok生成的方法命名符合 JavaBeans 规范，但某些工具错误解析了大小写差异，导致映射失败。为了解决该问题，提供了几种方案，包括手动定义 Getter&amp;#x2F;Setter 方法、调整 Lombok 的生成规则、修改属性命名或配置映射工具。最终选择手动定义 Getter&amp;#x2F;Setter 方法作为解决方案。通过此问题，作者反思了规范命名和工具兼容性的重要性，建议在开发中灵活调整解决方案。&lt;/p&gt;</summary>

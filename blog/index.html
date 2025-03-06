@@ -169,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.hl128k.site/2025/03/06/Nginx%E5%A4%9A%E5%B1%82%E4%BB%A3%E7%90%86%E5%BC%95%E5%8F%91%E7%9A%84DNS%E8%A7%A3%E6%9E%90%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E8%AE%B0%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="https://www.hl128k.site/2025/03/26/Nginx%E5%A4%9A%E5%B1%82%E4%BB%A3%E7%90%86%E5%BC%95%E5%8F%91%E7%9A%84DNS%E8%A7%A3%E6%9E%90%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -183,7 +183,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2025/03/06/Nginx%E5%A4%9A%E5%B1%82%E4%BB%A3%E7%90%86%E5%BC%95%E5%8F%91%E7%9A%84DNS%E8%A7%A3%E6%9E%90%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/2025/03/26/Nginx%E5%A4%9A%E5%B1%82%E4%BB%A3%E7%90%86%E5%BC%95%E5%8F%91%E7%9A%84DNS%E8%A7%A3%E6%9E%90%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Nginx多层代理引发的DNS解析异常问题排查记录</a>
         </h2>
 
         <div class="post-meta">
@@ -193,7 +193,16 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2025-03-06 19:29:09" itemprop="dateCreated datePublished" datetime="2025-03-06T19:29:09+08:00">2025-03-06</time>
+              <time title="创建时间：2025-03-26 19:31:48" itemprop="dateCreated datePublished" datetime="2025-03-26T19:31:48+08:00">2025-03-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">技术教程</span></a>
+                </span>
             </span>
 
           
@@ -207,48 +216,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Nginx多层代理引发的DNS解析异常问题排查记录"><a href="#Nginx多层代理引发的DNS解析异常问题排查记录" class="headerlink" title="Nginx多层代理引发的DNS解析异常问题排查记录"></a>Nginx多层代理引发的DNS解析异常问题排查记录</h1><h2 id="错误背景"><a href="#错误背景" class="headerlink" title="错误背景"></a>错误背景</h2><p>在基于Nginx+FRP的混合架构中，发现通过代理访问天地图服务时出现<code>404</code>错误，具体表现为：</p>
-<ul>
-<li>直接访问 <code>http://example.com/</code> 正常</li>
-<li>访问地图路径 <code>http://example.com/img_w/wmts?...</code> 返回404</li>
-<li>本地Nginx日志出现上游连接超时错误：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">connect() failed (10060) while connecting to upstream</span><br><span class="line">upstream: &quot;http://192.0.2.1:80/img_w/wmts...&quot;</span><br><span class="line"></span><br><span class="line">## 问题分析</span><br><span class="line"></span><br><span class="line">### 1. 多层代理架构缺陷</span><br><span class="line">```nginx</span><br><span class="line"># 原配置存在三层代理</span><br><span class="line">客户端 → 前端Nginx → FRP → 本地Nginx → 本地代理集群 → 天地图服务</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="2-DNS解析固化"><a href="#2-DNS解析固化" class="headerlink" title="2. DNS解析固化"></a>2. DNS解析固化</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">55100</span>;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://t0.tianditu.com; <span class="comment"># 启动时解析为固定IP</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 导致无法响应天地图服务的DNS变更</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-上游服务器配置异常"><a href="#3-上游服务器配置异常" class="headerlink" title="3. 上游服务器配置异常"></a>3. 上游服务器配置异常</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> tdt_map_server_list &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">127.0.0.1:55100</span>; <span class="comment"># 指向本地代理端口</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 实际形成代理循环，未正确指向外部服务</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-连接超时设置缺失"><a href="#4-连接超时设置缺失" class="headerlink" title="4. 连接超时设置缺失"></a>4. 连接超时设置缺失</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 未设置合理的超时参数</span></span><br><span class="line"><span class="attribute">proxy_connect_timeout</span> <span class="number">60s</span>;</span><br><span class="line"><span class="attribute">proxy_read_timeout</span> <span class="number">180s</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><h3 id="步骤1：简化代理架构"><a href="#步骤1：简化代理架构" class="headerlink" title="步骤1：简化代理架构"></a>步骤1：简化代理架构</h3><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 修改前</span><br><span class="line">location /img_w/ &#123;</span><br><span class="line">    proxy_pass http://tdt_map_server_list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 修改后</span><br><span class="line">location /img_w/ &#123;</span><br><span class="line">    proxy_pass https://t0.tianditu.com/img_w/;</span><br><span class="line">    proxy_ssl_server_name on;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="步骤2：动态DNS解析"><a href="#步骤2：动态DNS解析" class="headerlink" title="步骤2：动态DNS解析"></a>步骤2：动态DNS解析</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">resolver</span> <span class="number">223.5.5.5</span> <span class="number">8.8.8.8</span> valid=<span class="number">30s</span>; <span class="comment"># 阿里云+Google DNS</span></span><br><span class="line">    <span class="attribute">resolver_timeout</span> <span class="number">5s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="步骤3：超时参数优化"><a href="#步骤3：超时参数优化" class="headerlink" title="步骤3：超时参数优化"></a>步骤3：超时参数优化</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">proxy_connect_timeout</span> <span class="number">15s</span>;</span><br><span class="line"><span class="attribute">proxy_read_timeout</span> <span class="number">30s</span>;</span><br><span class="line"><span class="attribute">proxy_send_timeout</span> <span class="number">30s</span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="步骤4：SSL连接优化"><a href="#步骤4：SSL连接优化" class="headerlink" title="步骤4：SSL连接优化"></a>步骤4：SSL连接优化</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">proxy_ssl_protocols</span> TLSv1.<span class="number">2</span>;</span><br><span class="line"><span class="attribute">proxy_ssl_ciphers</span> HIGH:!aNULL:!MD5;</span><br></pre></td></tr></table></figure>
-
-<h2 id="经验总结"><a href="#经验总结" class="headerlink" title="经验总结"></a>经验总结</h2><ol>
-<li><p><strong>代理层级规范</strong><br>避免超过两层的代理转发，复杂代理链路会导致：</p>
-<ul>
-<li>调试困难</li>
-<li>性能损耗</li>
-<li>错误传播</li>
-</ul>
-</li>
-<li><p><strong>DNS解析机制</strong><br>Nginx默认在启动时解析域名，应：</p>
-<ul>
-<li>使用resolver指令强制动态解析</li>
-<li>定期检查证书有效性</li>
-<li>监控DNS解析成功率</li>
-</ul>
-</li>
-<li><p><strong>配置注释规范</strong><br>建议采用标准化注释：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># [SECURITY] TLS协议配置</span></span><br><span class="line"><span class="attribute">proxy_ssl_protocols</span> TLSv1.<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># [PERFORMANCE] 连接池设置</span></span><br><span class="line"><span class="attribute">keepalive</span> <span class="number">32</span>;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="最终配置示例"><a href="#最终配置示例" class="headerlink" title="最终配置示例"></a>最终配置示例</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">resolver</span> <span class="number">223.5.5.5</span> valid=<span class="number">30s</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 天地图服务直连配置</span></span><br><span class="line">    <span class="section">location</span> <span class="regexp">~ ^/(img_w|vec_w)/</span> &#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> https://t0.tianditu.com;</span><br><span class="line">        <span class="attribute">proxy_ssl_server_name</span> <span class="literal">on</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host t0.tianditu.com;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="attribute">proxy_connect_timeout</span> <span class="number">15s</span>;</span><br><span class="line">        <span class="attribute">proxy_read_timeout</span> <span class="number">30s</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 缓存配置</span></span><br><span class="line">        <span class="attribute">proxy_cache</span> map_cache;</span><br><span class="line">        <span class="attribute">proxy_cache_valid</span> <span class="number">200</span> <span class="number">302</span> <span class="number">10m</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>总结</strong>：通过简化代理架构、优化DNS解析机制、合理设置超时参数，最终解决多层代理导致的404错误。建议在复杂网络架构中定期进行配置审计。</p>
-
+          <p><strong>AI导读：</strong>在基于Nginx+FRP架构中，出现通过代理访问天地图服务时的404错误。通过排查，发现问题源于多层代理、DNS解析异常及上游服务器配置问题。解决过程包括简化代理架构、优化DNS解析和超时设置、以及SSL连接优化。经验总结指出，应避免过多代理层级，使用动态DNS解析机制，并定期检查证书和DNS解析成功率。同时，建议采用标准化配置注释。最终，通过优化配置，成功解决了404错误，强调定期审计复杂网络架构的配置。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/03/26/Nginx%E5%A4%9A%E5%B1%82%E4%BB%A3%E7%90%86%E5%BC%95%E5%8F%91%E7%9A%84DNS%E8%A7%A3%E6%9E%90%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E8%AE%B0%E5%BD%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -298,7 +274,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-06 19:29:09" itemprop="dateModified" datetime="2025-03-06T19:29:09+08:00">2025-03-06</time>
+                <time title="修改时间：2025-03-06 19:32:57" itemprop="dateModified" datetime="2025-03-06T19:32:57+08:00">2025-03-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -383,7 +359,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-06 19:29:09" itemprop="dateModified" datetime="2025-03-06T19:29:09+08:00">2025-03-06</time>
+                <time title="修改时间：2025-03-06 19:32:57" itemprop="dateModified" datetime="2025-03-06T19:32:57+08:00">2025-03-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1110,7 +1086,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

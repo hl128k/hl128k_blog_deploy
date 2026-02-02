@@ -2,27 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.hl128k.site/2025/03/26/Nginx%E5%A4%9A%E5%B1%82%E4%BB%A3%E7%90%86%E5%BC%95%E5%8F%91%E7%9A%84DNS%E8%A7%A3%E6%9E%90%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E8%AE%B0%E5%BD%95/</loc>
-    
-    <lastmod>2025-03-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.hl128k.site/about/index.html</loc>
     
-    <lastmod>2025-03-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.hl128k.site/tags/index.html</loc>
-    
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -31,7 +13,16 @@
   <url>
     <loc>https://www.hl128k.site/categories/index.html</loc>
     
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.hl128k.site/tags/index.html</loc>
+    
+    <lastmod>2026-02-02</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -40,7 +31,7 @@
   <url>
     <loc>https://www.hl128k.site/2024/11/20/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Lombok%E5%B1%9E%E6%80%A7%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3/</loc>
     
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -49,7 +40,25 @@
   <url>
     <loc>https://www.hl128k.site/2024/12/02/%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95%EF%BC%9ATypeScript%E6%8E%A8%E6%96%AD%E7%B1%BB%E5%9E%8B%E5%AF%BC%E8%87%B4%E7%9A%84never%E9%94%99%E8%AF%AF%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
     
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.hl128k.site/2026/02/02/%E7%99%BB%E5%BD%95VPS%E8%BF%9C%E7%A8%8B%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/</loc>
+    
+    <lastmod>2026-02-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.hl128k.site/2025/03/26/Nginx%E5%A4%9A%E5%B1%82%E4%BB%A3%E7%90%86%E5%BC%95%E5%8F%91%E7%9A%84DNS%E8%A7%A3%E6%9E%90%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E8%AE%B0%E5%BD%95/</loc>
+    
+    <lastmod>2025-03-26</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -166,7 +175,7 @@
 
   <url>
     <loc>https://www.hl128k.site/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -174,126 +183,126 @@
   
   <url>
     <loc>https://www.hl128k.site/tags/Actions/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/Gitea/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/Nginx/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/Serv00/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/free-api/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/%E8%84%9A%E6%9C%AC/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/fuclaude/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/go-proxy-bingai/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/new-api/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/docker/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/GitHub/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/Hexo/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/cloudflare/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/Telegraph-Image/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/lombok/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/java/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/tags/TypeScript/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -302,49 +311,49 @@
   
   <url>
     <loc>https://www.hl128k.site/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/%E9%83%A8%E7%BD%B2/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/Gitea/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/categories/%E8%84%9A%E6%9C%AC/</loc>
-    <lastmod>2025-03-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.hl128k.site/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/java/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/categories/%E8%84%9A%E6%9C%AC/Serv00/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.hl128k.site/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/java/</loc>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.hl128k.site/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/TypeScript/</loc>
-    <lastmod>2025-03-06</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

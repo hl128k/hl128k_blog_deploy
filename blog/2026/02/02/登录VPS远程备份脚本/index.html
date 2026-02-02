@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.hl128k.site","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="登录VPS远程备份脚本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="登录VPS远程备份脚本">
+<meta property="og:url" content="https://www.hl128k.site/2026/02/02/%E7%99%BB%E5%BD%95VPS%E8%BF%9C%E7%A8%8B%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/index.html">
+<meta property="og:site_name" content="hl128k Blog">
+<meta property="og:description" content="登录VPS远程备份脚本">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-02T03:20:00.000Z">
+<meta property="article:modified_time" content="2026-02-02T03:20:00.000Z">
+<meta property="article:author" content="hl128k">
+<meta property="article:tag" content="脚本">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.hl128k.site/2026/02/02/%E7%99%BB%E5%BD%95VPS%E8%BF%9C%E7%A8%8B%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>登录VPS远程备份脚本 | hl128k Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="hl128k Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hl128k Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个bug改一天</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-rss">
+
+    <a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.hl128k.site/2026/02/02/%E7%99%BB%E5%BD%95VPS%E8%BF%9C%E7%A8%8B%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hl128k">
+      <meta itemprop="description" content="hl128k的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hl128k Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          登录VPS远程备份脚本
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2026-02-02 11:20:00" itemprop="dateCreated datePublished" datetime="2026-02-02T11:20:00+08:00">2026-02-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%84%9A%E6%9C%AC/" itemprop="url" rel="index"><span itemprop="name">脚本</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ================= 配置区域 =================</span></span><br><span class="line">VPS_NAME=<span class="string">&quot;VPS-A&quot;</span></span><br><span class="line">VPS_IP=<span class="string">&quot;192.168.1.5&quot;</span></span><br><span class="line">VPS_PORT=<span class="string">&quot;22&quot;</span></span><br><span class="line">KEY_PATH=<span class="string">&quot;/home/user/.ssh/192.168.1.5.pem&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 源目录 (VPS上的目录)</span></span><br><span class="line">SOURCE_DIR=<span class="string">&quot;/app&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份根目录 (fnos上的目录)</span></span><br><span class="line"><span class="comment"># 注意：脚本会在这个目录下自动创建日期文件夹，比如 .../vps_a/20231027</span></span><br><span class="line">BASE_BACKUP_DIR=<span class="string">&quot;/vol2/1000/backup/192.168.1.5&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保留的版本数量</span></span><br><span class="line">KEEP_COUNT=7</span><br><span class="line"><span class="comment"># ===========================================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 准备目录</span></span><br><span class="line"><span class="keyword">if</span> [ ! -d <span class="string">&quot;<span class="variable">$BASE_BACKUP_DIR</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="variable">$BASE_BACKUP_DIR</span>&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> <span class="string">&quot;<span class="variable">$BASE_BACKUP_DIR</span>&quot;</span> || <span class="built_in">exit</span> 1  <span class="comment"># 如果进不去目录，直接报错退出</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 寻找基准目录</span></span><br><span class="line">LAST_BACKUP=$(<span class="built_in">ls</span> -d */ 2&gt;/dev/null | <span class="built_in">sort</span> -r | <span class="built_in">head</span> -n 1 | sed <span class="string">&#x27;s/\///&#x27;</span>)</span><br><span class="line">TODAY_STR=$(<span class="built_in">date</span> +%Y%m%d)</span><br><span class="line">TARGET_DIR=<span class="string">&quot;<span class="variable">$&#123;BASE_BACKUP_DIR&#125;</span>/<span class="variable">$&#123;TODAY_STR&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;[<span class="variable">$VPS_NAME</span>] 启动备份...&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;今天目标: <span class="variable">$TARGET_DIR</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 构建参数</span></span><br><span class="line">RSYNC_OPTS=<span class="string">&quot;-avz --delete&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">&quot;<span class="variable">$LAST_BACKUP</span>&quot;</span> ] &amp;&amp; [ <span class="string">&quot;<span class="variable">$LAST_BACKUP</span>&quot;</span> != <span class="string">&quot;<span class="variable">$TODAY_STR</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;发现旧备份: [<span class="variable">$&#123;LAST_BACKUP&#125;</span>]，启用增量硬链接模式。&quot;</span></span><br><span class="line">    RSYNC_OPTS=<span class="string">&quot;<span class="variable">$&#123;RSYNC_OPTS&#125;</span> --link-dest=<span class="variable">$&#123;BASE_BACKUP_DIR&#125;</span>/<span class="variable">$&#123;LAST_BACKUP&#125;</span>&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行全量备份。&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立今日目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="variable">$TARGET_DIR</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 执行备份</span></span><br><span class="line">rsync <span class="variable">$RSYNC_OPTS</span> -e <span class="string">&quot;ssh -p <span class="variable">$VPS_PORT</span> -i <span class="variable">$KEY_PATH</span>&quot;</span> root@<span class="variable">$&#123;VPS_IP&#125;</span>:<span class="variable">$&#123;SOURCE_DIR&#125;</span>/ <span class="variable">$&#123;TARGET_DIR&#125;</span>/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 捕获 rsync 的结果状态码</span></span><br><span class="line">EXIT_CODE=$?</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 判断结果</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$EXIT_CODE</span> -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;-------------------------------------&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;[<span class="variable">$VPS_NAME</span>] ✅ 备份成功！&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 清理旧版本</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;正在检查清理...&quot;</span></span><br><span class="line">    <span class="built_in">ls</span> -d */ | <span class="built_in">sort</span> -r | <span class="built_in">tail</span> -n +$((KEEP_COUNT + <span class="number">1</span>)) | xargs -I &#123;&#125; <span class="built_in">rm</span> -rf &#123;&#125;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;完成。&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 正常退出 (1Panel 显示成功)</span></span><br><span class="line">    <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;-------------------------------------&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;[<span class="variable">$VPS_NAME</span>] ❌ 备份失败！(错误码: <span class="variable">$EXIT_CODE</span>)&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;请检查 SSH 连接、磁盘空间或 rsync 是否安装。&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 如果失败，删掉今天生成的残缺文件夹，避免明天把它当做基准</span></span><br><span class="line">    <span class="built_in">rm</span> -rf <span class="string">&quot;<span class="variable">$TARGET_DIR</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 【关键】非0退出，强制 1Panel 标记为失败</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%84%9A%E6%9C%AC/" rel="tag"># 脚本</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/03/26/Nginx%E5%A4%9A%E5%B1%82%E4%BB%A3%E7%90%86%E5%BC%95%E5%8F%91%E7%9A%84DNS%E8%A7%A3%E6%9E%90%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E8%AE%B0%E5%BD%95/" rel="prev" title="Nginx多层代理引发的DNS解析异常问题排查记录">
+      <i class="fa fa-chevron-left"></i> Nginx多层代理引发的DNS解析异常问题排查记录
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hl128k</p>
+  <div class="site-description" itemprop="description">hl128k的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hl128k</span>
+</div>
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
